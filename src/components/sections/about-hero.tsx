@@ -15,7 +15,7 @@ import {
 } from '@/lib/animations';
 
 const stats = [
-  { id: 'years', number: '3+', label: 'Years Professional' },
+  { id: 'students', number: '1M+', label: 'Students Reached' },
   { id: 'universities', number: '30+', label: 'Universities' },
   { id: 'shops', number: '160+', label: 'Shops' },
 ];
@@ -62,7 +62,7 @@ export default function AboutHero() {
               className="text-muted-foreground mt-2 text-xl md:text-2xl"
               variants={fadeUp}
             >
-              Frontend Engineer
+              Front-End &amp; UX Engineer
             </motion.p>
             <motion.p
               className="text-muted-foreground mt-3 flex items-center justify-center gap-1.5 md:justify-start"

@@ -130,7 +130,8 @@ export default function ContactPage() {
           </motion.h1>
           <motion.div className="space-y-2" variants={fadeUp}>
             <p className="text-muted-foreground text-lg md:text-xl">
-              Open to new opportunities in front-end and full-stack development
+              Open to Front-End &amp; UX Engineer roles, with full-stack scope
+              welcome.
             </p>
             <p className="text-muted-foreground flex items-center gap-1.5">
               <MapPin className="size-4" />

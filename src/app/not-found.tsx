@@ -44,9 +44,9 @@ export default function NotFound() {
           className="text-muted-foreground mx-auto mb-6 max-w-md text-sm md:text-base lg:text-lg"
           variants={fadeUp}
         >
-          The page you&apos;re looking for doesn&apos;t exist
+          Broken link. Either yours or mine.
           <br />
-          or has been moved.
+          Let&apos;s assume mine.
         </motion.p>
 
         <motion.div variants={fadeUp}>

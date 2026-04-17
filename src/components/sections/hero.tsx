@@ -96,18 +96,25 @@ export default function Hero() {
               variants={fadeUp}
               className="text-muted-foreground dark:text-foreground mt-2 text-xl font-medium md:text-2xl"
             >
-              Frontend Engineer
+              Front-End &amp; UX Engineer
             </motion.p>
 
             <motion.p
               variants={fadeUp}
               className="text-muted-foreground dark:text-foreground my-4 text-sm md:my-6 md:text-lg"
             >
-              Frontend Engineer with full-stack and iOS development
-              experience, and a strong background in UI &amp; UX design. 3+
-              years building products used by millions, including Vepple (1M+
-              students, my work increased engagement by nearly 70%) and Pavers
-              (75+ components powering 160+ shops).
+              Shipping React and TypeScript products from Figma to production.
+              3+ years from{' '}
+              <a
+                href="https://vepple.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="decoration-muted-foreground/50 hover:decoration-foreground underline underline-offset-2 transition-all duration-300"
+              >
+                Vepple
+              </a>{' '}
+              (1M+ students, 12.13 pages per session) to Pavers (75+ components,
+              160+ shops).
             </motion.p>
 
             <motion.div variants={fadeUp} className="flex flex-wrap gap-4">
@@ -142,7 +149,7 @@ export default function Hero() {
         <motion.div variants={fadeUp} className="mt-12 lg:mt-16">
           <div className="bg-card/40 overflow-hidden rounded-2xl border p-5 backdrop-blur-sm sm:p-8">
             <Link
-              href="https://github.com/jacobreesgit"
+              href="https://github.com/jacobreesdev"
               target="_blank"
               rel="noopener noreferrer"
               className="group mb-5 inline-flex items-center gap-3 transition-colors hover:opacity-80"

@@ -46,8 +46,8 @@ export default function FeaturesGrid() {
             className="text-muted-foreground text-lg leading-snug lg:text-balance"
             variants={fadeUp}
           >
-            A selection of professional and personal work showcasing full-stack
-            development, enterprise platforms, and e-commerce solutions.
+            Production work for 30+ UK universities, a 160-store retailer, and
+            three shipped side-projects.
           </motion.p>
         </motion.div>
 

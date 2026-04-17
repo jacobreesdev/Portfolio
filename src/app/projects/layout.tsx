@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Projects',
-  description: 'A selection of professional and personal work by Jacob Rees',
+  description:
+    'Projects shipped by Jacob Rees across higher education, e-commerce, and personal side-projects: Vepple, Pavers, CanonCore, Waveger, MusicCount.',
 };
 
 export default function ProjectsLayout({

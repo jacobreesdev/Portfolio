@@ -50,9 +50,8 @@ export default function MyStory() {
               >
                 final coding project
               </Link>
-              ), I&apos;ve spent the last 3+ years building products and
-              managing client relationships across higher education and
-              e-commerce. At{' '}
+              ), I&apos;ve spent the last 3+ years shipping React and
+              TypeScript products across higher education and e-commerce. At{' '}
               <Link
                 href="https://pavers.co.uk"
                 target="_blank"
@@ -61,9 +60,8 @@ export default function MyStory() {
               >
                 Pavers
               </Link>
-              , I built accessible component libraries across headless CMS
-              architectures powering 160+ retail shops. At Revolution Viewing, I
-              worked on{' '}
+              , I built a WCAG 2.1 AA component library powering 160+ retail
+              shops across 5+ brands. At Revolution Viewing, I work on{' '}
               <Link
                 href="https://vepple.com"
                 target="_blank"
@@ -72,22 +70,24 @@ export default function MyStory() {
               >
                 Vepple
               </Link>
-              , a platform serving 30+ UK universities, while also mentoring
-              engineers and supporting customer success through client
-              onboarding and demos.
+              , a platform serving 30+ UK universities. I led front-end and UX
+              on the original Vue.js build, then spearheaded the ground-up
+              rebuild to React, Next.js 16, and TypeScript with the CTO and Product
+              Manager, and mentored a junior engineer to independent delivery
+              in 4 weeks.
             </p>
 
             <p>
               What keeps me interested is the mix of visual polish and technical
               problem-solving. Some days I&apos;m tweaking animations and
-              getting interactions just right, other days I&apos;m figuring out
-              complex logic or tracking down a weird bug.
+              getting interactions just right, other days I&apos;m designing an
+              A/B experiment or tracking down a weird accessibility bug.
             </p>
 
             <p>
-              I&apos;m now looking for a role with more technical ownership
-              across full-stack and iOS development. I want to build products
-              that matter, with a team that cares about doing things properly.
+              I&apos;m now looking for a role where I can keep bridging design
+              and engineering, shipping accessible and measurable products with
+              a team that cares about doing things properly.
             </p>
           </motion.div>
         </motion.div>

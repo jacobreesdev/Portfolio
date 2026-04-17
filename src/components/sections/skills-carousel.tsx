@@ -34,8 +34,9 @@ const features = [
   {
     id: 'frontend',
     icon: Code,
-    title: 'Front-End Development',
-    description: 'Vue.js, React, React Native, Next.js, TypeScript, Tailwind, Three.js',
+    title: 'React, every day',
+    description:
+      'React, Next.js, Vue.js, TypeScript, Tailwind CSS, GraphQL, REST APIs',
     filterTag: 'Front-End',
     image: {
       src: '/images/skills/front-end.webp',
@@ -48,9 +49,9 @@ const features = [
   {
     id: 'fullstack',
     icon: Database,
-    title: 'Full-Stack Development',
+    title: 'Backend, when it needs one',
     description:
-      'Node.js, PostgreSQL, Prisma, Firebase, Supabase, NextAuth.js, REST APIs, GraphQL, Vitest, Playwright',
+      'Node.js, tRPC, Drizzle, PostgreSQL, Firebase, TanStack Query, Zustand',
     filterTag: 'Full-Stack',
     image: {
       src: '/images/skills/full-stack.webp',
@@ -63,9 +64,9 @@ const features = [
   {
     id: 'mobile',
     icon: Smartphone,
-    title: 'Mobile App Development',
+    title: 'React Native plus native iOS',
     description:
-      'Native iOS apps with Swift, SwiftUI, UIKit, Core Data, and Combine',
+      'React Native, Expo, Maestro, Swift, SwiftUI',
     filterTag: 'Mobile',
     image: {
       src: '/images/skills/mobile.webp',
@@ -78,8 +79,9 @@ const features = [
   {
     id: 'tools',
     icon: Palette,
-    title: 'DevOps, Analytics & UI/UX Design',
-    description: 'Figma, Docker, Git, Vercel, GTM, Google Analytics',
+    title: 'The rest of the toolkit',
+    description:
+      'Figma, Storybook, Vitest, Playwright, GitHub Actions, Vercel, GTM',
     filterTag: 'Tools & Design',
     image: {
       src: '/images/skills/design.webp',
@@ -137,8 +139,8 @@ export default function FeaturesCarousel() {
               <span className="text-muted-foreground/80">Technologies</span>
             </h2>
             <p className="text-muted-foreground text-lg leading-snug">
-              From front-end frameworks to full-stack development and native
-              mobile apps.
+              React and TypeScript day-to-day, plus the backend and mobile
+              tools I reach for when a project needs them.
             </p>
           </motion.div>
 

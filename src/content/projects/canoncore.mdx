@@ -1,24 +1,28 @@
 ---
 title: 'CanonCore'
 category: 'Personal Project'
-description: 'Google Drive meets Netflix. Visual browsing, drag-and-drop organisation, watch progress, collections others can fork.'
+description: 'Plex meets Obsidian for personal media libraries. Cross-platform monorepo (Next.js 16 + Expo) with a DAG-backed library and force-directed graph view.'
 technologies:
   [
-    'Next.js 16',
-    'React 19',
-    'React Native',
+    'Arcjet',
+    'Better Auth',
+    'Drizzle',
     'Expo',
-    'TypeScript',
-    'Redux Toolkit',
-    'TanStack React Query',
-    'PostgreSQL',
-    'Prisma 7',
-    'Tailwind CSS 4',
-    'NextAuth.js v5',
-    'Three.js',
-    'Vitest',
+    'Inngest',
+    'Neon',
+    'Next.js',
+    'PIXI.js',
     'Playwright',
-    'Storybook',
+    'React Native',
+    'Sentry',
+    'Tailwind CSS',
+    'tRPC',
+    'Turborepo',
+    'TypeScript',
+    'Vidstack',
+    'Vitest',
+    'Zod',
+    'Zustand',
   ]
 link: 'https://demo.canoncore.com'
 github: 'https://github.com/jacobreesgit/canoncore-v2'
@@ -27,338 +31,193 @@ year: '2025–Present'
 featured: true
 ---
 
-## The Product
+## What it is
 
-CanonCore turns Google Drive into a fully featured media library: visual browsing, metadata enrichment, progress tracking, and public sharing, without moving or duplicating your files. The name comes from "canon" as the app pulls canonical metadata from sources like [TMDB](https://www.themoviedb.org). Create folder structures for movies and TV shows, reorganise with drag and drop, enrich items with posters and backdrops, track what you've watched, and share collections publicly. Your files live in your storage, not ours.
+CanonCore is what you'd get if Plex and Obsidian had a child. The Plex half is a file-backed personal media library. It pulls metadata from pluggable providers (TMDB for film and TV, Big Finish for audio drama), plays video and audio, tracks what I've watched, and scrobbles. Unlike Plex, it doesn't need a home server or a NAS. Google Drive is the storage backend; new files in the connected folder appear within seconds via webhook sync.
 
-I use this daily for my own movie and TV library. Active development continues with a React Native iOS app and interactive 3D graph visualisation (see [In Progress](#in-progress) below).
+The Obsidian half is the knowledge graph. Eight kinds of **entity** are first-class rows: person, character, franchise, company, concept, location, era, and genre. **Relationships** between items come in nine typed flavours: sequel, prequel, spin-off, crossover, remake, adaptation, behind-the-scenes, version, and deleted scenes. The library renders as a force-directed graph; the data model is a DAG, not a tree, so the same film can be **multi-placed** in multiple containers without being duplicated. People, characters, and franchises aren't containers; they're entities, browsed sideways through the entity index.
 
----
+Two apps share the model: a web app and a native mobile app. Both render the same library and the same graph view. I built it for myself.
 
-## Features
+## Why it was hard
 
-<div className="not-prose mt-6 grid gap-24 lg:gap-32">
+Three constraints set the architecture.
 
-{/* Browsing & Organisation */}
+**Multi-placement.** A media library is rarely a tree. An episode of anthology TV lives in a season, a series, "2003 releases", and a "Best of the year" shortlist all at once. A tree forces duplicates or abandons the second dimension. The data model is a DAG with an edge table; cycle detection, DAG-aware visibility, and reparenting UX come with the shape.
 
-<div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
-  <div className="order-2 lg:order-1">
-    <h3 className="text-foreground mb-4 text-xl font-semibold tracking-tight">
-      Browsing & Organisation
-    </h3>
-    <div className="space-y-4">
-      <div className="text-muted-foreground leading-relaxed">
-        Two views: Grid is Netflix-style with poster cards and progress bars.
-        Tree is file explorer-style showing all descendants at once. Every item
-        page has a hero banner. Folders display watched and total counts using a
-        90% completion threshold to account for credit skipping. "Go to next"
-        performs a depth-first traversal to locate your first incomplete item
-        automatically.
-      </div>
-      <div className="text-muted-foreground leading-relaxed">
-        Edit mode enables drag-and-drop, bulk selection, and full keyboard
-        navigation with screen reader announcements. Pinned items (max 10)
-        appear in the sidebar. [dnd-kit](https://dndkit.com) only loads in edit
-        mode to keep browsing fast.
-      </div>
-    </div>
-  </div>
-  <div className="order-1 lg:order-2">
-    <CarouselStandard2
-      images={[
-        '/portfolio/canoncore/02-tree-view-macbook-thumb.webp',
-        '/portfolio/canoncore/05-item-grid-macbook-thumb.webp',
-      ]}
-      alt={['Tree view', 'Item grid']}
-      buttonLabels={['Tree', 'Grid']}
-    />
-  </div>
-</div>
+**Cross-platform, without two codebases.** I wanted the same library on web and mobile without writing it twice. Data and business logic are shared packages; UI is not. A native-feeling app wants native primitives, not a lowest-common-denominator wrapper. The graph view is the lone exception (covered below), mounted on mobile through Expo's `"use dom"` directive.
 
-{/* Media Playback */}
+**Metadata from many places.** TMDB covers film and TV but nothing else. Hardcoding a new integration for every other media type would have wedged provider quirks deep into the enrichment code. So I defined a single port, `CMPPProvider`, and let adapters plug in.
 
-<div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
-  <div className="order-1">
-    <CarouselStandard2
-      images={[
-        '/portfolio/canoncore/03-video-desktop-thumb.webp',
-        '/portfolio/canoncore/03-video-mobile-thumb.webp',
-      ]}
-      alt={[
-        'Desktop video player with subtitle tracks',
-        'Mobile video player with subtitle tracks',
-      ]}
-      buttonLabels={['Desktop', 'Mobile']}
-    />
-  </div>
-  <div className="order-2">
-    <h3 className="text-foreground mb-4 text-xl font-semibold tracking-tight">
-      Media Playback
-    </h3>
-    <div className="space-y-4">
-      <div className="text-muted-foreground leading-relaxed">
-        [Vidstack](https://vidstack.io)-powered video player streams media directly
-        from Google Drive via HTTP range requests. Supports SRT, VTT, SUB, and ASS subtitle
-        tracks.
-      </div>
-      <div className="text-muted-foreground leading-relaxed">
-        A persistent Spotify-style audio player sits at the bottom of the screen
-        with queue management (shuffle, repeat, skip, drag-reorder). Redux
-        Toolkit drives the queue state machine, and a renderless audio bridge
-        syncs store state to the HTML5 Audio API. Playback position auto-saves
-        and resumes where you left off.
-      </div>
-    </div>
-  </div>
-</div>
+## Architecture decisions
 
-{/* One-Click Metadata */}
+### Metadata as ports and adapters
 
-<div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
-  <div className="order-2 lg:order-1">
-    <h3 className="text-foreground mb-4 text-xl font-semibold tracking-tight">
-      One-Click Metadata
-    </h3>
-    <div className="text-muted-foreground leading-relaxed">
-      You can enrich movies and TV shows with [TMDB](https://www.themoviedb.org)
-      metadata. A three-step wizard lets you search for a title, select from
-      multiple poster options, and choose a backdrop image for hero banners.
-    </div>
-  </div>
-  <div className="order-1 lg:order-2">
-    <CarouselStandard2
-      images={[
-        '/portfolio/canoncore/04-tmdb-wizard-macbook-thumb.webp',
-        '/portfolio/canoncore/04-tmdb-wizard-iphone-thumb.webp',
-      ]}
-      alt={[
-        'Desktop TMDB search wizard with poster selection',
-        'Mobile TMDB search wizard with poster selection',
-      ]}
-      buttonLabels={['MacBook', 'iPhone']}
-    />
-  </div>
-</div>
+`CMPPProvider` is the interface for metadata sources. Two adapters today: TMDB (film and TV) and Big Finish (audio drama). 
 
-{/* Google Drive Sync */}
+TMDB wraps upstream calls in a 5-failure / 60-second circuit breaker, and external IDs are deterministic (`tv:{showId}:season:{n}:episode:{n}`) so re-enrichment hits the same entity without a second search. 
 
-<div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
-  <div className="order-1">
-    <CarouselStandard2
-      images={[
-        '/portfolio/canoncore/06-google-drive-sync-macbook-thumb.webp',
-        '/portfolio/canoncore/06-google-drive-sync-iphone-thumb.webp',
-      ]}
-      alt={[
-        'Desktop sync panel and Drive connection UI',
-        'Mobile sync panel and Drive connection UI',
-      ]}
-      buttonLabels={['MacBook', 'iPhone']}
-    />
-  </div>
-  <div className="order-2">
-    <h3 className="text-foreground mb-4 text-xl font-semibold tracking-tight">
-      Google Drive Sync
-    </h3>
-    <div className="text-muted-foreground leading-relaxed">
-      All your media files stay in your Drive. Google's Changes API enables
-      incremental syncs, fetching only changed items since the last update. If
-      incremental sync returns no results, a verification step triggers a full
-      sync. Conflicts are handled gracefully: if a file changed in Drive since
-      your last sync, local changes are rejected with a notification.    </div>
-  </div>
-</div>
+Big Finish was the real test. No public API; the data lives behind an open-source aggregator that exposed products but not the series-level groupings (Big Finish "ranges") a real library browses by. I forked it, added `/bigfinish/range/{slug}` and `/bigfinish/ranges`, and the adapter sits on top. None of that leaks past the boundary, and planned Audible, Open Library, and Google Books adapters can sit on the same fork: one fork, three more providers, no new fetch layer. 
 
-{/* Public Sharing */}
+Enrichment runs through an Inngest pipeline with four steps (extract colour for theming, auto-populate entities, check for nested children, fire a nested-scaffold pipeline if so), each retrying independently so a flaky TMDB call doesn't wipe out colour extraction that already succeeded.
 
-<div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
-  <div className="order-2 lg:order-1">
-    <h3 className="text-foreground mb-4 text-xl font-semibold tracking-tight">
-      Public Sharing
-    </h3>
-    <div className="text-muted-foreground leading-relaxed">
-      Make items public to share them. Your profile page shows your public
-      items. The explore page shows public items from everyone with a featured
-      banner carousel. Shared links generate dynamic preview cards for
-      Twitter, Discord, and Slack.
-    </div>
-  </div>
-  <div className="order-1 lg:order-2">
-    <CarouselStandard2
-      images={[
-        '/portfolio/canoncore/07-explore-page-macbook-thumb.webp',
-        '/portfolio/canoncore/07-explore-page-iphone-thumb.webp',
-      ]}
-      alt={[
-        'Desktop explore page with featured carousel',
-        'Mobile explore page with featured carousel',
-      ]}
-      buttonLabels={['MacBook', 'iPhone']}
-    />
-  </div>
-</div>
+### DAG with recursive-CTE visibility
 
-{/* Forking */}
+The library is a DAG. Items connect through an `itemEdge` adjacency table; a `(parentId, sortOrder)` index keeps ordered sibling reads (the most common query) cheap. The same item can appear under multiple parents (multi-placement). Cycle detection runs at mutation time through a recursive CTE over ancestors.
 
-<div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
-  <div className="order-1">
-    <CarouselStandard2
-      images={[
-        '/portfolio/canoncore/32-fork-dialog-macbook-thumb.webp',
-        '/portfolio/canoncore/32-fork-dialog-iphone-thumb.webp',
-      ]}
-      alt={['Desktop fork to library dialog', 'Mobile fork to library dialog']}
-      buttonLabels={['MacBook', 'iPhone']}
-    />
-  </div>
-  <div className="order-2">
-    <h3 className="text-foreground mb-4 text-xl font-semibold tracking-tight">
-      Forking
-    </h3>
-    <div className="text-muted-foreground leading-relaxed">
-      Visibility inherits through the hierarchy. Items can be public, private, or
-      inherit from a parent. A public item with a private ancestor stays
-      inaccessible. Other users can fork your collections into their own
-      library, copying names, descriptions, artwork, and hierarchy. Media files
-      and subtitles stay private. Think of it like sharing a Spotify playlist:
-      the structure is public, the files aren't.
-    </div>
-  </div>
-</div>
+The more interesting CTE is visibility: it walks ancestor paths through *public edges only*. The item, the owner, and at least one full ancestor path all need to be public, so an item placed in both a public collection and a private one stays visible from the public side. The batch form does it for N items in one query, which keeps the public Explore feed O(N) instead of O(N × depth).
 
-{/* Spotlight Search */}
+Typed relationships between items (sequel, prequel, etc.) live in a separate table; the two directions of any pair round-trip through one record via an inverse-type lookup.
 
-<div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
-  <div className="order-2 lg:order-1">
-    <h3 className="text-foreground mb-4 text-xl font-semibold tracking-tight">
-      Spotlight Search
-    </h3>
-    <div className="text-muted-foreground leading-relaxed">
-      Press <code className="rounded bg-white/10 px-1.5 py-0.5 text-sm">/</code>{' '}
-      anywhere to open Spotlight Search. Results load in parallel across Your
-      Items, Public Collections, and People. A 60-second cache gives instant
-      responses on repeat searches. Breadcrumb paths reveal each item's full
-      hierarchy.
-    </div>
-  </div>
-  <div className="order-1 lg:order-2">
-    <CarouselStandard2
-      images={[
-        '/portfolio/canoncore/08-spotlight-search-macbook-thumb.webp',
-        '/portfolio/canoncore/08-spotlight-search-iphone-thumb.webp',
-      ]}
-      alt={['Desktop spotlight search modal', 'Mobile spotlight search modal']}
-      buttonLabels={['MacBook', 'iPhone']}
-    />
-  </div>
-</div>
+### Drive sync, event-driven and crash-safe
 
-{/* Built-in Documentation */}
+Google Drive sits behind a `StorageProvider` interface, so application code never imports the SDK directly.
 
-<div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
-  <div className="order-1">
-    <CarouselStandard2
-      images={[
-        '/portfolio/canoncore/36-docs-macbook-thumb.webp',
-        '/portfolio/canoncore/36-docs-iphone-thumb.webp',
-      ]}
-      alt={[
-        'Desktop documentation with navigation and search',
-        'Mobile documentation with navigation and search',
-      ]}
-      buttonLabels={['MacBook', 'iPhone']}
-    />
-  </div>
-  <div className="order-2">
-    <h3 className="text-foreground mb-4 text-xl font-semibold tracking-tight">
-      Built-in Documentation
-    </h3>
-    <div className="text-muted-foreground leading-relaxed">
-      Includes a documentation site built with
-      [Fumadocs](https://fumadocs.vercel.app).
-    </div>
-  </div>
-</div>
+Webhooks from Drive map to a connection into Inngest with concurrency limited to one per connection. Changes are deduplicated (last write wins per fileId) and sorted folders-first, because a file arriving before its parent folder would hit a foreign-key violation. Push notification channels auto-renew every six hours via Inngest cron.
 
-</div>
+Duplicate detection runs *after* the main sync transaction commits, so a crash mid-sync just means the duplicate is re-detected on the next run.
 
----
+Conflicts (same file edited on both sides) surface in a side-by-side diff UI with three strategies (Keep Drive, Keep Canon, Keep Both); the user picks rather than the sync guessing.
 
-## In Progress
+Bidirectional push uses the same interface. After a push, `driveFileName` is updated to match, so the resulting webhook ping looks like a no-op and skips.
 
-- **React Native iOS App:** A native iOS companion built with React Native and Expo. Browse your library, stream media, and track progress on the go, sharing the same backend and authentication as the web app.
-- **3D Graph Visualisation:** Interactive 3D graph built with Three.js, rendering items and connections as a force-directed node network with camera controls, zoom, and real-time physics.
+### Colour-adaptive theming
 
----
+Every enriched item has a backdrop, and the UI tints to match: buttons, borders, ambient glow. On the server, `sharp.stats()` extracts a dominant colour from the artwork once at enrichment time (with a saturation boost so muted posters don't collapse to grey), and the client expands that one hex into 10 shades from light to dark. Those shades drive CSS custom properties registered through `@property`, which makes them animatable; navigating between items crossfades the theme over 500ms. OG images use the same shades, so shared links match.
 
-## How It's Built
+### Entities with retry-safe enrichment
 
-### Architecture Decisions
+Entities are rows in an `entity` table (eight types, listed earlier). Items link to entities through an `itemEntity` join table with eight roles (STARS_AS, APPEARS_IN, DIRECTED, WROTE, COMPOSED, PRODUCED_BY, SET_IN, FEATURES). A TMDB match auto-populates `PERSON`s for the cast, a `CHARACTER` per role, and `PERSON`s for the crew; companies, franchises, locations, and the rest are user-created. Both dedup by `(userId, cmppProvider, cmppExternalId)` where a provider ID exists, by `(userId, name, type)` otherwise. Cast is capped at twenty per item, because TMDB will cheerfully return forty and most of them are "Uncredited Barista".
 
-**Google Drive migration:** I originally built this on SFTP, but path-based matching meant every rename or move created duplicates. No stable IDs, no change detection API, read-only from the web. Google Drive solved all of it: permanent file IDs survive renames and moves, Changes API for incremental sync, full read/write access so users can create folders directly from CanonCore. Should have started here.
+On re-enrichment (the user picked a different TMDB match), stale entity role rows are deleted, but only for provider-sourced roles, the ones a re-enrichment is allowed to churn. Manually-added entity roles survive, and typed item relationships (sequel, adaptation, and the rest) are left alone entirely. The nested-scaffold pipeline itself is retry-safe: if a step fails mid-way and Inngest retries, it picks up from the failed step instead of duplicating seasons.
 
-**Stack Auth → NextAuth.js v5:** I started with managed auth, then migrated to self-hosted JWT sessions after hitting rate limits. I added **23+ rate limiters** via [Upstash Redis](https://upstash.com) with different thresholds per action (strict for auth, generous for browsing).
+### Graph view
 
-**Four-layer state management:** Global client state lives in Redux Toolkit (media player queue, playback position). Server state uses TanStack React Query (items, playlists, metadata). URL state uses nuqs (search filters, pagination cursors). Local component state stays in useState. Each layer has a single responsibility, so nothing competes or duplicates.
+Force-directed graph, PIXI.js v8 + d3-force. Nodes are items and entities; edges fall into three classes (containment, typed relationships, item→entity). The simulation is BFS depth-limited from a focal node, so a library of thousands of items doesn't collapse into a hairball.
 
----
+Mobile would normally mean a second WebGL port through Skia. Instead the component is wrapped in an Expo DOM component (`"use dom"`) and the same renderer runs inside a native WebView.
 
-### Security & Resilience
+### Cross-platform data contract
 
-Account lockout after 5 failed login attempts (15-minute progressive delay). JWT token versioning invalidates all sessions on password change. Email verification for signup and email changes. OWASP security headers on every route: CSP, HSTS with preload, X-Frame-Options DENY, and Permissions-Policy. All database mutations are logged via a Prisma Client Extension with automatic redaction of sensitive fields (passwords, tokens, credentials). Circuit breaker on [TMDB](https://www.themoviedb.org) and Google Drive calls to handle failures gracefully. Edge-level bot protection blocks **37 AI crawlers** while rate-limiting beneficial bots. Zod schema validation across all server actions.
+Shared packages, consumed by both apps:
 
----
+- `@canoncore/api`: tRPC routers, 12 of them, 96 procedures.
+- `@canoncore/db`: Drizzle schema, 17 tables, 8 enums, 20 migrations.
+- `@canoncore/hooks`: shared TanStack Query hooks and colour math. No DOM APIs.
+- `@canoncore/store`: Zustand + Immer stores, platform-agnostic.
+- `@canoncore/validators`: Zod schemas (auth, items, entities, relationships, profiles).
+- `@canoncore/graph-engine`: the PIXI renderer, framework-agnostic.
+- `@canoncore/services`: server-only. Storage, CMPP, sync, visibility, colour, crypto.
+- `@canoncore/inngest`: event schemas and durable functions.
 
-### Performance
+Platform boundaries are marked with `server-only` imports. Mobile can't accidentally import the Drive provider or the Drizzle client, because the bundler errors first.
 
-Extracted a view-only Grid from SortableGrid to avoid [dnd-kit](https://dndkit.com) overhead in browse mode. Google Drive operations batched up to **100 per request**, reducing sync time from **~45s to ~3s**. Video streaming uses HTTP 206 range requests with 10MB default chunks for instant seeking. Virtualised lists via [TanStack Virtual](https://tanstack.com/virtual) for large collections. Cursor-based keyset pagination throughout (no offset queries). Colour extraction runs server-side via [sharp](https://sharp.pixelplumbing.com) and feeds 10 CSS custom properties registered with `@property` for animated colour transitions on hero pages. `content-visibility: auto` on grid cards and tree items for off-screen rendering performance.
 
----
+## Auth and security
 
-### Accessibility
+[Better Auth](https://www.better-auth.com/) with email/password and the Expo plugin. Argon2id password hashing (the library default). Password reset has a 30-minute token expiry and revokes all active sessions on success (`revokeSessionsOnPasswordReset: true`); if the user reset because they suspected compromise, old sessions can't survive the reset. Account lockout is five failures in fifteen minutes.
 
-WCAG 2.1 AA compliant throughout. Reduced motion support via a custom hook that disables carousel autoplay and animations. Skip link to main content. ARIA live regions for drag-and-drop announcements.
+Some fields (visibility, bio, avatars, lockout counters) should only be written by the server. The Better Auth config blocks client writes, and a hook strips them from update bodies as backup. Standard defence against mass assignment.
 
----
+**Drive OAuth tokens** are encrypted at rest with AES-256-GCM (authenticated, so tampering is detected). Each token gets a fresh IV; the key comes from the environment.
 
-### Testing
+**Rate limiting** uses [Arcjet](https://docs.arcjet.com/reference/nextjs/) (120 req/min per IP) at the tRPC handler, with Better Auth adding a stricter limit on auth endpoints. 
 
-**3,000+ tests** across unit, integration, and E2E layers. [Vitest](https://vitest.dev) unit tests cover auth, items, Google Drive sync, and crypto operations. Integration tests run against real [Neon](https://neon.tech) PostgreSQL. E2E tests with [Playwright](https://playwright.dev) use **16 Page Object Models** and test against a real Google Drive account, not mocked. Tests automatically create missing fixtures for self-healing reliability. **69 Storybook stories** with [axe-core](https://github.com/dequelabs/axe-core) accessibility testing that fails the build on WCAG 2.1 AA violations.
+**Input validation** is Zod on every API procedure; no `z.any()` or `z.unknown()` in the router. Public-page JSON-LD escapes `</` to `<\/` so user bios can't break out of the script tag.
 
----
+## Media playback
 
-### Observability
+Web uses [Vidstack](https://www.vidstack.io/) whilst mobile uses [expo-video](https://docs.expo.dev/versions/latest/sdk/video/) for video and [react-native-track-player](https://rntp.dev/) for audio, coordinated through a bridge that shares a Zustand store with the web app (queue, currentIndex, shuffleMode, repeatMode, isPlaying, isExpanded, isQueueOpen). The store has to outlive the player component, because the mini-player, expanded view, and queue sheet all read from it.
 
-[Sentry](https://sentry.io) error tracking across client, server, and edge runtimes with source maps for readable stack traces. Layered error boundaries catch failures at each route scope and report to Sentry automatically. [OpenTelemetry](https://opentelemetry.io) distributed tracing via Vercel's integration and Speed Insights for Core Web Vitals monitoring in production.
+A few specifics:
 
----
+- **Scrobble at 80% completion**, once per item (the Last.fm/Trakt convention, so it lands where users expect). The Inngest function is keyed by user+item, so fast scrubbing can't double-count.
+- **Position persistence every 30 seconds**, plus an immediate save on visibility-change (browser) and `AppState.change` to background (mobile). The immediate save covers force-quit.
+- **Subtitles**. Web uses Vidstack `<Track>` elements; mobile parses VTT/SRT with `@plussub/srt-vtt-parser` and renders an overlay, because expo-video doesn't support external subtitle URLs.
+- **Range-request streaming**. `/api/media/[fileId]` forwards `Range` headers straight to Drive's `files.get(alt=media)` and pipes the response through without buffering. `Cache-Control: private, max-age=3600` stops the browser from re-fetching. Permission is checked per request through one indexed `itemFile → item → userId` join, so a leaked URL doesn't grant anonymous access; the recipient still has to be the owner.
 
-### CI/CD
+## State, forms, URLs
 
-GitHub Actions pipeline runs a quality gate (format, lint, type check, unused code detection) then kicks off tests and production build in parallel. Schema migrations deploy across **4 Neon database branches** (development, production, demo, seed) with automated seeding after each migration. A separate Storybook CI workflow builds and runs interaction tests with Playwright. [Husky](https://typicode.github.io/husky) pre-commit hooks run ESLint and Prettier on staged files. Conventional commits enforced by commitlint.
+- **Server state**: TanStack Query through tRPC, 30-second `staleTime`, SuperJSON hydration, streaming link through `httpBatchStreamLink`.
+- **Client state**: Zustand + Immer for the playback queue, shared between web and mobile.
+- **Form state**: TanStack Form with Zod resolvers.
+- **URL state**: `nuqs` for filter, sort, and view-mode params that should survive a refresh.
 
----
+Optimistic mutations make the UI feel instant: the cache updates before the server replies, and on failure the toast tells you it didn't stick. Seventeen flows across the two apps (create, delete, reparent, reorder, watch, visibility), each wrapping `onMutate` / `onError` / `onSettled` with toast on rollback ([sonner](https://sonner.emilkowal.ski/) on web, sonner-native on mobile).
 
-### SEO & Social Sharing
+## Performance
 
-Dynamic OpenGraph images generated server-side for every public profile and item page. Shared links show rich preview cards on Twitter, Discord, and Slack. JSON-LD structured data (Movie, TVSeries, Person schemas) for search engines. Dynamic sitemap keeps all public profiles and items indexed.
+The mini-player progress bar updates every frame. It bypasses React state and writes to the DOM directly via a Vidstack subscription, so the transport controls around it don't re-render sixty times a second.
 
----
+## Accessibility
 
-### Component Documentation
+Full keyboard support in the player, focus management around dialogs, skip links, visible focus rings, and a shortcut handler that defers to Vidstack when the player is focused. Every animation (colour crossfade, Ken Burns hero, stagger reveals) respects `prefers-reduced-motion`. The graph view carries a dismissible notice pointing screen-reader users to the item-detail "Related" section, which exposes the same data as a list.
 
-**69 component stories** documented in [Storybook](https://canoncore-storybook.vercel.app) with [axe-core](https://github.com/dequelabs/axe-core) accessibility checks, [MSW](https://mswjs.io) API mocking, and custom viewports (iPhone, iPad, Desktop, Desktop XL).
+Mobile has `accessibilityLabel` and `accessibilityRole` on interactive elements throughout.
 
----
+## Testing
 
-## Tech Stack
+The shape matters more than the total:
 
-**Front End:** Next.js 16, React 19, React Native, Expo, TypeScript, Redux Toolkit, TanStack React Query, Tailwind CSS 4, shadcn/ui, Vidstack, Three.js, [dnd-kit](https://dndkit.com), cmdk
+| Layer | Files | Cases | Runner | Database |
+|---|---|---|---|---|
+| Integration (tRPC) | 18 | 326 | Vitest | PGlite, in-process |
+| Unit | 21 | 252 | Vitest | n/a |
+| Inngest steps | 7 | 29 | `@inngest/test` `InngestTestEngine` | Step mocks |
+| Playwright E2E | 66 | 392 | Playwright | Postgres container per shard (CI) |
+| Mobile E2E | 45 flows | n/a | Maestro | Neon branch |
 
-**Back End:** Prisma 7, NextAuth.js v5, Server Actions, Zod
+Integration tests outnumber unit tests deliberately. They run tRPC procedures against in-process Postgres ([PGlite](https://electric-sql.com/docs/product/pglite)) instead of mocks, catching bugs across procedure logic, Drizzle, and SQL in one layer. No Docker on the dev path.
 
-**APIs:** Google Drive (OAuth 2.0, Changes API, Batch API), TMDB
+Inngest functions are tested step-by-step with `InngestTestEngine`: mocked service calls, verified retries and error paths, no dev server. Most projects that run Inngest skip this entirely.
 
-**Infrastructure:** Vercel, Neon PostgreSQL (4 branches), Upstash Redis, Sentry, OpenTelemetry, GitHub Actions CI/CD
+Playwright E2E is split `@ci` (chromium, per-PR) and `@nightly` (external services). CI runs the `@ci` set across a 4-shard matrix with per-shard Postgres containers (covered below). Shards merge into one HTML report at the end.
 
-**Testing:** Vitest, Playwright (16 POMs), Storybook (69 stories), axe-core, MSW
+Maestro covers mobile through reusable sub-flows (fourteen of them) so auth and setup aren't duplicated across thirty-one top-level flows.
+
+## Observability
+
+- **Sentry**: errors and traces, 10% sample in production, 100% in dev, fully disabled in E2E. Session replays at 10% always, 100% on error.
+- **LogTape → Better Stack**: structured logs through an OpenTelemetry sink, category-prefixed, level-gated per environment.
+- **Inngest**: its own function-run observability. Step traces, retries, and dead-letter queues all visible from the dashboard.
+
+## CI/CD
+
+GitHub Actions with jobs for lint, typecheck, build, unit and integration tests, knip (unused exports), commitlint, and the 4-shard E2E matrix (using the official `mcr.microsoft.com/playwright` container). Pre-commit hooks ([Lefthook](https://github.com/evilmartians/lefthook)) run a lighter version of the same gates locally.
+
+Deploy is [Vercel](https://vercel.com/) for the web app.
+
+## Neon branch per environment
+
+Four database environments, each a branch of the same schema (so demo data doesn't pollute development and E2E doesn't race against my own usage):
+
+- `main`: production
+- `development`: default for local dev
+- `demo`: seeded showcase data
+- `e2e`: Playwright and Maestro target this locally; integration tests use PGlite in-process instead.
+
+## SEO and social
+
+- **OG images**. Rendered per page with [Satori](https://github.com/vercel/satori) (`next/og`); dominant colours pass a hex regex before being injected, since Satori's CSS is only as safe as its inputs.
+- **JSON-LD**. BreadcrumbList schema on content pages, injected through `dangerouslySetInnerHTML` with `</` escaping.
+
+## Tech stack
+
+**Front end**: Next.js 16, React 19, Tailwind CSS v4 (CSS-first config), Radix, Vidstack, PIXI.js v8, d3-force, dnd-kit, sonner, Embla Carousel, Fumadocs (for in-app docs).
+
+**Mobile**: Expo 54, React Native 0.81, expo-router, expo-video, react-native-track-player, gorhom bottom sheet, @legendapp/list, react-native-reanimated, Uniwind.
+
+**Back end**: tRPC v11, Drizzle ORM, Zod, SuperJSON, Better Auth, Arcjet.
+
+**APIs**: TMDB, Big Finish (through aggregator), Google Drive, UploadThing.
+
+**Infrastructure**: Neon Postgres (branch per environment), Inngest, Vercel, Sentry, LogTape to Better Stack, Resend.
+
+**Testing**: Vitest, PGlite, `@inngest/test`, Playwright (sharded, Postgres-per-shard), Maestro.
+
+**Tooling**: Turborepo, pnpm (with catalog-pinned versions), TypeScript 5.9, ESLint (`@antfu` flat config, type-aware), Prettier, Knip, Lefthook, commitlint.
+
+## What I'd do differently
+
+- **Model the DAG from the first migration.** v1 was a tree. v2 was the rebuild. Knowing what I know now, the edge table goes in on day one and the rework epic doesn't happen.
+- **Storybook before the components, not after.** Deferring it meant every component got tested in-app first. The ones that landed cleanly are the ones I'd have built in isolation anyway.

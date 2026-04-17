@@ -19,18 +19,22 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL('https://jacobrees.dev'),
   title: {
-    default: 'Jacob Rees | Frontend Engineer',
+    default: 'Jacob Rees | Front-End & UX Engineer',
     template: '%s | Jacob Rees',
   },
   description:
-    'Frontend Engineer building products used by millions. Built Vepple (1M+ students, 4x engagement) and Pavers (75+ components powering 160+ shops). Vue.js, React, Next.js.',
+    'Front-End & UX Engineer shipping React and TypeScript products from Figma to production, with WCAG 2.2 AA accessibility and A/B-tested conversions. Built Vepple (1M+ students, 12.13 pages per session) and Pavers (75+ components powering 160+ shops).',
   keywords: [
-    'Frontend Engineer',
-    'Vue.js',
+    'Front-End Engineer',
+    'UX Engineer',
     'React',
     'Next.js',
+    'Vue.js',
     'TypeScript',
     'JavaScript',
+    'Accessibility',
+    'WCAG',
+    'A/B Testing',
     'Web Developer',
     'Portfolio',
   ],
@@ -47,24 +51,24 @@ export const metadata: Metadata = {
     shortcut: [{ url: '/favicon.png' }],
   },
   openGraph: {
-    title: 'Jacob Rees | Frontend Engineer',
+    title: 'Jacob Rees | Front-End & UX Engineer',
     description:
-      'Frontend Engineer building products used by millions. Built Vepple (1M+ students, 4x engagement) and Pavers (75+ components powering 160+ shops).',
+      'Front-End & UX Engineer shipping React and TypeScript products from Figma to production. Built Vepple (1M+ students, 12.13 pages per session) and Pavers (75+ components powering 160+ shops).',
     siteName: 'Jacob Rees',
     images: [
       {
         url: '/images/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Jacob Rees - Frontend Engineer',
+        alt: 'Jacob Rees - Front-End & UX Engineer',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Jacob Rees | Frontend Engineer',
+    title: 'Jacob Rees | Front-End & UX Engineer',
     description:
-      'Frontend Engineer building products used by millions. Built Vepple (1M+ students, 4x engagement) and Pavers (75+ components powering 160+ shops).',
+      'Front-End & UX Engineer shipping React and TypeScript products from Figma to production. Built Vepple (1M+ students, 12.13 pages per session) and Pavers (75+ components powering 160+ shops).',
     images: ['/images/og-image.jpg'],
   },
 };

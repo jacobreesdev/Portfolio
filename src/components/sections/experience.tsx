@@ -40,11 +40,11 @@ export default function Experience({ className }: ExperienceProps) {
     {
       id: 'revolution-viewing',
       period: 'Mar 2023 - Present',
-      title: 'Frontend Engineer',
+      title: 'Front-End & UX Engineer',
       company: 'Revolution Viewing',
       roles: [
         {
-          title: 'Frontend Engineer',
+          title: 'Front-End & UX Engineer',
           period: 'Feb 2026 - Present',
           current: true,
         },
@@ -55,10 +55,8 @@ export default function Experience({ className }: ExperienceProps) {
       ],
       bullets: [
         <>
-          Sole front-end and UX developer, collaborating directly on design
-          &amp; product direction, mentoring engineers, and supporting customer
-          success through client onboarding, demos, and feedback sessions.
-          Helped build{' '}
+          Led front-end and UX development on the original Vue.js platform
+          consuming a GraphQL API, helping build{' '}
           <a
             href="https://vepple.com"
             target="_blank"
@@ -66,9 +64,14 @@ export default function Experience({ className }: ExperienceProps) {
             className="text-foreground decoration-muted-foreground/50 hover:decoration-foreground underline underline-offset-2 transition-all duration-300"
           >
             Vepple
-          </a>
-          , a virtual experience platform for 30+ UK universities, reaching 1M+
-          students with 12+ pages and 7 minutes per session.
+          </a>{' '}
+          into a platform reaching 1M+ students with 12.13 pages and 6m52s per
+          session across 30+ UK universities.
+        </>,
+        <>
+          Spearheaded ground-up front-end rebuild with the CTO and Product
+          Manager, replacing Vue.js with a production-grade React, Next.js 16,
+          and TypeScript stack with full CI/CD and automated testing.
         </>,
         <>
           Architected Events Management System with Firebase real-time chat,
@@ -76,27 +79,27 @@ export default function Experience({ className }: ExperienceProps) {
           increase in views per session.
         </>,
         <>
-          Built production A/B testing framework with GrowthBook SDK,
-          GDPR-compliant tracking, and GTM analytics, enabling data-driven
-          design decisions.
-        </>,
-        <>
-          Developed custom ACF blocks and GraphQL queries for headless WordPress
-          CMS.
+          Built production A/B testing framework with GrowthBook SDK, running
+          15 experiments across 20K+ users with +19.2% click rate uplift.
+          Integrated GDPR-compliant tracking and GTM analytics.
         </>,
         <>
           Engineered Explore by Map feature with Mapbox GL JS, directions API,
           and GPS tracking. Map users averaged 21 pages per session with 64%
-          longer engagement.
+          longer session duration.
         </>,
         <>
-          Enhanced panorama Guided Tour suite (WCAG 2.2 AA) with ambassador
-          intro/end screens with real-time captions and in-panorama social media
-          Content Spots, driving 65% more pages and 50% longer engagement.
+          Enhanced panorama Guided Tour suite (WCAG 2.2 AA) with live captions
+          and Content Spots, driving 65% more pages and 50% longer sessions.
+        </>,
+        <>
+          Mentored a junior engineer through code reviews and pair programming,
+          accelerating their ramp-up to independent feature delivery within 4
+          weeks.
         </>,
       ],
       technologies:
-        'Vue.js, Pinia, Quasar, Firebase, GraphQL, WordPress, Mapbox GL JS, Histoire, Vitest, GTM',
+        'Vue.js, React, Next.js, TypeScript, Pinia, Firebase, GraphQL, Mapbox GL JS, GrowthBook, Vitest, Playwright, GTM',
     },
     {
       id: 'pavers',
@@ -105,8 +108,8 @@ export default function Experience({ className }: ExperienceProps) {
       company: 'Pavers',
       bullets: [
         <>
-          Developed a WCAG 2.1 AA-compliant component library (75+ components)
-          with multi-brand theming for{' '}
+          Built a WCAG 2.1 AA-compliant responsive component library of 75+
+          components across 5+ brands for{' '}
           <a
             href="https://pavers.co.uk"
             target="_blank"
@@ -115,25 +118,23 @@ export default function Experience({ className }: ExperienceProps) {
           >
             Pavers
           </a>
-          , a UK retailer with 160+ stores. Built reusable UI with Storybook
-          documentation using Shopify Liquid and React, enabling content teams
-          to customise pages via Sanity CMS across 5+ brands.
+          , a UK retailer with 160+ stores, using React, Shopify Liquid, and
+          Storybook. Worked with design and content teams to enable page
+          customisation via Sanity CMS.
         </>,
         <>
-          Integrated Algolia search, improving search relevance and driving a
-          10% increase in search-driven conversions.
+          Integrated retail-media sponsored placements into Algolia search,
+          driving an 11.4% conversion uplift across a 10,000+ product
+          catalogue.
         </>,
         <>
-          Combined Lucky Orange with a weather API for location-based
-          recommendations, resulting in 7+% conversion.
-        </>,
-        <>
-          Increased front-end test coverage by 40% through Jest-based tests for
-          critical user flows.
+          Combined Lucky Orange session data with a weather API to serve
+          location-based product recommendations, resulting in an 8.9%
+          conversion lift.
         </>,
       ],
       technologies:
-        'Shopify Liquid, Sanity CMS, Bootstrap, React, Algolia, Jest, Lucky Orange, Google Tag Manager',
+        'React, Shopify Liquid, Sanity CMS, Algolia, Storybook, Jest, Lucky Orange, Google Tag Manager',
     },
     {
       id: 'university-leeds',
@@ -225,7 +226,6 @@ export default function Experience({ className }: ExperienceProps) {
                   <div className="mb-5 flex flex-col items-start">
                     {exp.roles.map((role, i, arr) => (
                       <React.Fragment key={i}>
-                        {/* Role row */}
                         <div className="flex items-center gap-3">
                           <div
                             className={cn(
@@ -249,7 +249,6 @@ export default function Experience({ className }: ExperienceProps) {
                             </span>
                           </div>
                         </div>
-                        {/* Connecting line between roles */}
                         {i < arr.length - 1 && (
                           <div className="bg-muted-foreground/40 ml-[4px] h-3 w-[2px]" />
                         )}

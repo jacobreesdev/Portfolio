@@ -20,9 +20,9 @@ import {
 
 const stats = [
   {
-    id: 'years',
-    value: '3+',
-    label: 'Years Professional',
+    id: 'students',
+    value: '1M+',
+    label: 'Students Reached',
   },
   {
     id: 'universities',
@@ -56,9 +56,10 @@ export default function WhyWeBegan() {
             <motion.div className="space-y-6 lg:space-y-8" variants={fadeUp}>
               <h2 className="text-4xl tracking-tight lg:text-5xl">About Me</h2>
               <p className="text-muted-foreground text-lg leading-relaxed">
-                I create intuitive, feature-rich applications that prioritise
-                the user experience. With 3+ years of professional experience,
-                I&apos;ve built platforms used by millions.
+                Front-End &amp; UX Engineer shipping React and TypeScript
+                products in higher education and e-commerce. 3+ years at
+                Revolution Viewing (Vepple) and Pavers, focused on
+                accessibility and A/B-tested conversions.
               </p>
             </motion.div>
 

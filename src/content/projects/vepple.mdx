@@ -5,14 +5,19 @@ description: 'Virtual experience platform powering campus tours for 30+ UK unive
 technologies:
   [
     'Vue.js',
+    'React',
+    'Next.js',
+    'TypeScript',
     'Pinia',
     'Quasar',
     'Firebase',
     'GraphQL',
     'WordPress',
     'Mapbox GL JS',
+    'GrowthBook',
     'Histoire',
     'Vitest',
+    'Playwright',
     'GTM',
   ]
 links:
@@ -27,13 +32,15 @@ featured: true
 
 ## Overview
 
-Vepple is a virtual experience platform used by 30+ UK universities including Imperial College London, Nottingham Trent, and Queen's University Belfast. As the sole front-end and UX developer at Revolution Viewing, I collaborate directly with the CTO and Product Manager on design and product direction, while also supporting customer success through client onboarding, demos, and feedback sessions. My work extends beyond typical frontend—I write GraphQL queries, build ACF blocks in WordPress, and implement features across the Vue.js/Quasar frontend. Insights from client interactions directly shape the features I build, from the mobile navigation overhaul to the events system. The platform has delivered 4x more pages viewed per session compared to standard university websites, with users averaging 12+ pages and nearly 7 minutes per visit. Over 1 million students have interacted with the platform.
+Vepple is a virtual experience platform used by 30+ UK universities including Imperial College London, Nottingham Trent, and Queen's University Belfast. I led front-end and UX development at Revolution Viewing, collaborating directly with the CTO and Product Manager on design and product direction, while also supporting customer success through client onboarding, demos, and feedback sessions. My work extends beyond typical frontend: I write GraphQL queries, build ACF blocks in WordPress, and implement features across the Vue.js/Quasar frontend. Insights from client interactions directly shape the features I build, from the mobile navigation overhaul to the events system.
+
+I'm currently spearheading a ground-up front-end rebuild with the CTO and Product Manager, replacing the Vue.js/Quasar stack with a production-grade React, Next.js 16, and TypeScript codebase with full CI/CD and automated testing. The original platform has delivered 4x more pages viewed per session compared to standard university websites, with users averaging 12.13 pages and 6m52s per visit, and over 1 million students have interacted with it.
 
 ## Key Contributions
 
 ### Mobile Navigation
 
-The original header-based navigation wasn't cutting it on mobile. I designed and built a completely new system from scratch: a fixed bottom tab bar with five contextual actions—Menu, Map, Personalise, Checklist, and Chat. Each tab opens custom swipeable bottom sheet panels built with [VueUse](https://vueuse.org), surfacing expanded navigation, Open Day schedule tracking, filter controls, and direct access to Explore by Map. The result: **85% increase** in mobile engagement and **41% longer** session duration.
+The original header-based navigation wasn't cutting it on mobile. I designed and built a completely new system from scratch: a fixed bottom tab bar with five contextual actions: Menu, Map, Personalise, Checklist, and Chat. Each tab opens custom swipeable bottom sheet panels built with [VueUse](https://vueuse.org), surfacing expanded navigation, Open Day schedule tracking, filter controls, and direct access to Explore by Map. The result: **85% increase** in mobile engagement and **41% longer** session duration.
 
 ### Events Management System
 
@@ -55,7 +62,7 @@ Architected a modular home page system with four interchangeable designs, config
 
 Improved the [GTM](https://tagmanager.google.com) analytics infrastructure across the frontend and shared component library. Built a centralised data layer module to capture user interactions, enabling the marketing team to measure engagement with video content, interactive tours, and navigation flows.
 
-Integrated [GrowthBook](https://www.growthbook.io) A/B testing for various experiments including home page variants and different UI approaches for guided tours, enabling data-driven design decisions.
+Built a production A/B testing framework on the [GrowthBook](https://www.growthbook.io) SDK, running **15 experiments across 20K+ users** with a **+19.2% click rate uplift**. Covers home page variants, guided tour UI, and navigation flows, with GDPR-compliant tracking and GTM analytics wired through the same data layer.
 
 ### Component Library
 
@@ -63,7 +70,7 @@ Built reusable content blocks for universities to customise their experiences, d
 
 ### Headless CMS Architecture
 
-Developed custom [ACF](https://www.advancedcustomfields.com) blocks and [GraphQL](https://graphql.org) queries for the headless [WordPress](https://wordpress.org) CMS using [WPGraphQL](https://www.wpgraphql.com). Each university has a dedicated WordPress instance where content editors configure their experience, with the Vue.js frontend fetching content via GraphQL through [Stellate](https://stellate.co) CDN for edge caching. I write queries and mutations across both the CMS and frontend, ensuring performant content delivery and seamless editor workflows.
+Developed custom [ACF](https://www.advancedcustomfields.com) blocks and [GraphQL](https://graphql.org) queries for the headless [WordPress](https://wordpress.org) CMS using [WPGraphQL](https://www.wpgraphql.com). Each university has a dedicated WordPress instance where content editors configure their experience, with the Vue.js frontend fetching content via GraphQL through [Stellate](https://stellate.co) CDN for edge caching. I write queries and mutations across both the CMS and frontend, ensuring performant content delivery for editors and end users alike.
 
 ### Accessibility Mode
 
@@ -79,6 +86,10 @@ When enabled, accessibility mode activates global audio-described video track sw
 - **1M+ students** interacted with Guided Tours
 - **40% international traffic** from 200+ countries
 - **70% of students** said Vepple makes them more likely to attend Open Day
+- **65% of students** said Vepple makes them more likely to apply to that university
+- **10%+ of total CRM engagements** for BCU, rivalling high-touch recruitment events
+- **155% engagement uplift** on guided tours led by students vs platform average
+- **44% longer engagement** and **111% more page views** per session at the University of Salford after rolling out "Day in the Life" tours
 
 ## Sources
 
@@ -86,3 +97,6 @@ When enabled, accessibility mode activates global audio-described video track sw
 - [Explore by Map](https://www.vepple.com/product/features-pricing/explore-by-map/): Map engagement stats
 - [Events System](https://www.vepple.com/product/features-pricing/events-system/): Events metrics
 - [Guided Tours](https://www.vepple.com/product/features-pricing/vepple-core/guided-tours/): Tour engagement stats
+- [Vepple homepage](https://www.vepple.com/): 4x pages, 70% more likely to attend, 65% more likely to apply
+- [Powerful Storytelling Drives Student Engagement](https://www.vepple.com/insight/blog/powerful-storytelling-drives-student-engagement/): 155% engagement uplift; University of Salford 44% engagement / 111% page-view uplift
+- [Making the case for a virtual experience](https://www.vepple.com/insight/blog/making-the-case-for-a-virtual-experience-when-budgets-are-tight/): BCU 10%+ of total CRM engagements
