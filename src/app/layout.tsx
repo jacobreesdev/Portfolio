@@ -5,6 +5,7 @@ import { Inter } from 'next/font/google';
 
 import Footer from '@/components/layout/footer';
 import Navbar from '@/components/layout/navbar';
+import { MotionProvider } from '@/components/motion-provider';
 import ScrollToTop from '@/components/scroll-to-top';
 import { StyleGlideProvider } from '@/components/styleglide-provider';
 import { ThemeProvider } from '@/components/theme-provider';
@@ -19,14 +20,14 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL('https://jacobrees.dev'),
   title: {
-    default: 'Jacob Rees | Front-End & UX Engineer',
+    default: 'Jacob Rees | Frontend Engineer',
     template: '%s | Jacob Rees',
   },
   description:
-    'Front-End & UX Engineer shipping React and TypeScript products from Figma to production, with WCAG 2.2 AA accessibility and A/B-tested conversions. Built Vepple (1M+ students, 12.13 pages per session) and Pavers (75+ components powering 160+ shops).',
+    'Frontend Engineer shipping React and TypeScript products from Figma to production, with WCAG 2.2 AA accessibility and A/B-tested conversions. Built Vepple (500K+ students, 12.13 pages per session) and Pavers (75+ components powering 160+ shops).',
   keywords: [
+    'Frontend Engineer',
     'Front-End Engineer',
-    'UX Engineer',
     'React',
     'Next.js',
     'Vue.js',
@@ -51,24 +52,24 @@ export const metadata: Metadata = {
     shortcut: [{ url: '/favicon.png' }],
   },
   openGraph: {
-    title: 'Jacob Rees | Front-End & UX Engineer',
+    title: 'Jacob Rees | Frontend Engineer',
     description:
-      'Front-End & UX Engineer shipping React and TypeScript products from Figma to production. Built Vepple (1M+ students, 12.13 pages per session) and Pavers (75+ components powering 160+ shops).',
+      'Frontend Engineer shipping React and TypeScript products from Figma to production. Built Vepple (500K+ students, 12.13 pages per session) and Pavers (75+ components powering 160+ shops).',
     siteName: 'Jacob Rees',
     images: [
       {
         url: '/images/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Jacob Rees - Front-End & UX Engineer',
+        alt: 'Jacob Rees - Frontend Engineer',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Jacob Rees | Front-End & UX Engineer',
+    title: 'Jacob Rees | Frontend Engineer',
     description:
-      'Front-End & UX Engineer shipping React and TypeScript products from Figma to production. Built Vepple (1M+ students, 12.13 pages per session) and Pavers (75+ components powering 160+ shops).',
+      'Frontend Engineer shipping React and TypeScript products from Figma to production. Built Vepple (500K+ students, 12.13 pages per session) and Pavers (75+ components powering 160+ shops).',
     images: ['/images/og-image.jpg'],
   },
 };
@@ -91,11 +92,13 @@ export default function RootLayout({
           defaultTheme="light"
           disableTransitionOnChange
         >
-          <ScrollToTop />
-          <StyleGlideProvider />
-          <Navbar />
-          <main className="flex-1">{children}</main>
-          <Footer />
+          <MotionProvider>
+            <ScrollToTop />
+            <StyleGlideProvider />
+            <Navbar />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </MotionProvider>
         </ThemeProvider>
       </body>
     </html>

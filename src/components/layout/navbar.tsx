@@ -46,7 +46,7 @@ const NAV_LINKS = [
 const ACTION_BUTTONS = [
   {
     label: 'Download CV',
-    href: '/cv.pdf',
+    href: '/CV.pdf',
     variant: 'default' as const,
     icon: FileText,
   },
@@ -67,17 +67,19 @@ const Navbar = () => {
   );
 
   useEffect(() => {
+    const html = document.documentElement;
+    const body = document.body;
     if (isMenuOpen) {
-      document.documentElement.style.overflow = 'hidden';
-      document.body.style.overflow = 'hidden';
+      html.classList.add('overflow-hidden');
+      body.classList.add('overflow-hidden');
     } else {
-      document.documentElement.style.overflow = '';
-      document.body.style.overflow = '';
+      html.classList.remove('overflow-hidden');
+      body.classList.remove('overflow-hidden');
     }
 
     return () => {
-      document.documentElement.style.overflow = '';
-      document.body.style.overflow = '';
+      html.classList.remove('overflow-hidden');
+      body.classList.remove('overflow-hidden');
     };
   }, [isMenuOpen]);
 

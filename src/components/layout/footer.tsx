@@ -70,14 +70,14 @@ const Footer = () => {
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
           {/* Left side - Footer sections */}
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-3 md:col-span-3">
-            {FOOTER_SECTIONS.map((section, index) => (
-              <div key={index}>
-                <h3 className="text-foreground mb-4 font-bold md:mb-8">
+            {FOOTER_SECTIONS.map((section) => (
+              <div key={section.title}>
+                <h2 className="text-foreground mb-4 font-semibold md:mb-8">
                   {section.title}
-                </h3>
+                </h2>
                 <ul className="space-y-3">
-                  {section.links.map((link, linkIndex) => (
-                    <li key={linkIndex}>
+                  {section.links.map((link) => (
+                    <li key={link.href}>
                       <Link
                         href={link.href}
                         className="text-muted-foreground hover:text-foreground text-sm transition-colors"
@@ -99,9 +99,9 @@ const Footer = () => {
           <div className="flex w-fit flex-col items-start justify-self-end md:col-span-1">
             <Logo />
             <div className="mt-4 flex gap-4 md:mt-8">
-              {SOCIAL_LINKS.map((link, index) => (
+              {SOCIAL_LINKS.map((link) => (
                 <Link
-                  key={index}
+                  key={link.name}
                   href={link.href}
                   className="text-muted-foreground hover:text-foreground transition-colors"
                   target="_blank"
@@ -120,7 +120,7 @@ const Footer = () => {
             Based in Durham, England
           </p>
 
-          <p className="text-muted-foreground text-sm">
+          <p className="text-muted-foreground text-sm" suppressHydrationWarning>
             © {new Date().getFullYear()} Jacob Rees. All rights reserved.
           </p>
         </div>

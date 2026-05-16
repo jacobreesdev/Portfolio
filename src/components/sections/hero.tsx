@@ -2,7 +2,7 @@
 
 import { MeshGradient } from '@paper-design/shaders-react';
 import { ChevronRight, Download } from 'lucide-react';
-import { motion } from 'motion/react';
+import * as m from 'motion/react-m';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
@@ -53,14 +53,14 @@ export default function Hero() {
           />
         </div>
       )}
-      <motion.div
+      <m.div
         variants={fadeIn}
         initial={initial}
         animate="visible"
         className="from-background/60 dark:from-background/30 pointer-events-none absolute inset-0 bg-gradient-to-b to-transparent"
       />
       <Noise />
-      <motion.div
+      <m.div
         className="z-1 container"
         variants={heroContainer}
         initial={initial}
@@ -68,7 +68,7 @@ export default function Hero() {
       >
         <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
           {/* Profile Image - Shows first on mobile, second on desktop */}
-          <motion.div
+          <m.div
             variants={scaleUp}
             className="flex justify-center lg:order-2 lg:justify-end"
           >
@@ -78,33 +78,34 @@ export default function Hero() {
                 alt="Jacob Rees"
                 fill
                 priority
+                sizes="(min-width: 1024px) 384px, (min-width: 768px) 320px, 100vw"
                 className="object-cover"
               />
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Text Content */}
           <div className="lg:order-1">
-            <motion.h1
+            <m.h1
               variants={fadeUp}
               className="text-4xl font-medium tracking-tight md:text-5xl lg:text-6xl"
             >
               Jacob Rees
-            </motion.h1>
+            </m.h1>
 
-            <motion.p
+            <m.p
               variants={fadeUp}
               className="text-muted-foreground dark:text-foreground mt-2 text-xl font-medium md:text-2xl"
             >
-              Front-End &amp; UX Engineer
-            </motion.p>
+              Frontend Engineer
+            </m.p>
 
-            <motion.p
+            <m.p
               variants={fadeUp}
               className="text-muted-foreground dark:text-foreground my-4 text-sm md:my-6 md:text-lg"
             >
-              Shipping React and TypeScript products from Figma to production.
-              3+ years from{' '}
+              Shipping React and TypeScript products from Figma to production. 4
+              years from{' '}
               <a
                 href="https://vepple.com"
                 target="_blank"
@@ -113,11 +114,19 @@ export default function Hero() {
               >
                 Vepple
               </a>{' '}
-              (1M+ students, 12.13 pages per session) to Pavers (75+ components,
-              160+ shops).
-            </motion.p>
+              (500K+ students, 12.13 pages per session) to{' '}
+              <a
+                href="https://pavers.co.uk"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="decoration-muted-foreground/50 hover:decoration-foreground underline underline-offset-2 transition-all duration-300"
+              >
+                Pavers
+              </a>{' '}
+              (75+ components, 160+ shops).
+            </m.p>
 
-            <motion.div variants={fadeUp} className="flex flex-wrap gap-4">
+            <m.div variants={fadeUp} className="flex flex-wrap gap-4">
               <Button
                 size="lg"
                 className="rounded-full !pl-5.5 before:rounded-full"
@@ -136,17 +145,17 @@ export default function Hero() {
                 className="rounded-full"
                 asChild
               >
-                <Link href="/cv.pdf" target="_blank">
+                <Link href="/CV.pdf" target="_blank">
                   Download CV
                   <Download className="ml-2 size-4" />
                 </Link>
               </Button>
-            </motion.div>
+            </m.div>
           </div>
         </div>
 
         {/* GitHub Contributions Calendar */}
-        <motion.div variants={fadeUp} className="mt-12 lg:mt-16">
+        <m.div variants={fadeUp} className="mt-12 lg:mt-16">
           <div className="bg-card/40 overflow-hidden rounded-2xl border p-5 backdrop-blur-sm sm:p-8">
             <Link
               href="https://github.com/jacobreesdev"
@@ -168,7 +177,7 @@ export default function Hero() {
             <div className="github-calendar-wrapper overflow-x-auto">
               {mounted ? (
                 <GitHubCalendar
-                  username="jacobreesgit"
+                  username="jacobreesdev"
                   year="last"
                   colorScheme={resolvedTheme === 'dark' ? 'dark' : 'light'}
                   blockSize={12}
@@ -198,7 +207,7 @@ export default function Hero() {
                 />
               ) : (
                 <div className="text-muted-foreground flex h-[180px] animate-pulse items-center justify-center text-base">
-                  Loading contributions...
+                  Loading contributions…
                 </div>
               )}
             </div>
@@ -224,8 +233,8 @@ export default function Hero() {
               , with fixes for caching and responsive scaling.
             </p>
           </div>
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
     </section>
   );
 }

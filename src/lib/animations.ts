@@ -143,9 +143,3 @@ export const scrollViewport = {
   once: true,
   amount: 0.1,
 } as const;
-
-// Viewport settings for larger sections
-export const scrollViewportLarge = {
-  once: true,
-  amount: 0.05,
-} as const;

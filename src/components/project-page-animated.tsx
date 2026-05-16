@@ -1,101 +1,99 @@
 'use client';
 
-import { motion } from 'motion/react';
-import Image from 'next/image';
+import * as m from 'motion/react-m';
+import { getImageProps } from 'next/image';
 import type { ReactNode } from 'react';
-import { useEffect, useState } from 'react';
+import { useCallback } from 'react';
+import ReactDOM from 'react-dom';
 
 import usePrefersReducedMotion from '@/hooks/usePrefersReducedMotion';
 import { fadeUp, staggerContainer } from '@/lib/animations';
+
+const EMPTY_PRELOAD_IMAGES: readonly string[] = [];
 
 interface ProjectPageAnimatedProps {
   backButton: ReactNode;
   sidebar: ReactNode;
   mainContent: ReactNode;
-  preloadImages?: string[]; // High-res images to preload after animations
+  preloadImages?: readonly string[];
+}
+
+function preloadHighResImages(images: readonly string[]) {
+  for (const src of images) {
+    const { props } = getImageProps({
+      src,
+      alt: '',
+      width: 1920,
+      height: 1080,
+    });
+    ReactDOM.preload(props.src, {
+      as: 'image',
+      imageSrcSet: props.srcSet,
+      imageSizes: props.sizes,
+      fetchPriority: 'low',
+    });
+  }
 }
 
 export function ProjectPageAnimated({
   backButton,
   sidebar,
   mainContent,
-  preloadImages = [],
+  preloadImages = EMPTY_PRELOAD_IMAGES,
 }: ProjectPageAnimatedProps) {
   const prefersReducedMotion = usePrefersReducedMotion();
-  // Initialize animation state based on reduced motion preference
-  const [animationComplete, setAnimationComplete] =
-    useState(prefersReducedMotion);
+
+  const handleAnimationComplete = useCallback(() => {
+    preloadHighResImages(preloadImages);
+  }, [preloadImages]);
+
+  const reducedMotionPreloaderRef = useCallback(
+    (node: HTMLElement | null) => {
+      if (node) preloadHighResImages(preloadImages);
+    },
+    [preloadImages],
+  );
 
   if (prefersReducedMotion) {
     return (
-      <>
-        <section className="relative z-10 py-16">
-          <div className="container max-w-7xl">
-            {backButton}
-            <div className="grid grid-cols-1 gap-16 lg:grid-cols-4">
-              <div className="lg:col-span-1">{sidebar}</div>
-              <div className="lg:col-span-3">{mainContent}</div>
-            </div>
+      <section ref={reducedMotionPreloaderRef} className="relative z-10 py-16">
+        <div className="container max-w-7xl">
+          {backButton}
+          <div className="grid grid-cols-1 gap-16 lg:grid-cols-4">
+            <div className="lg:col-span-1">{sidebar}</div>
+            <div className="lg:col-span-3">{mainContent}</div>
           </div>
-        </section>
-        {/* Preload high-res images */}
-        {animationComplete &&
-          preloadImages.map((src) => (
-            <Image
-              key={src}
-              src={src}
-              alt=""
-              width={1920}
-              height={1080}
-              className="hidden"
-              priority
-            />
-          ))}
-      </>
+        </div>
+      </section>
     );
   }
 
   return (
-    <>
-      <section className="relative z-10 py-16">
-        <div className="container max-w-7xl">
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={staggerContainer}
-            onAnimationComplete={() => setAnimationComplete(true)}
-          >
-            {/* Back Button */}
-            <motion.div variants={fadeUp}>{backButton}</motion.div>
+    <section className="relative z-10 py-16">
+      <div className="container max-w-7xl">
+        <m.div
+          initial="hidden"
+          animate="visible"
+          variants={staggerContainer}
+          onAnimationComplete={handleAnimationComplete}
+        >
+          {/* Back Button */}
+          <m.div variants={fadeUp}>{backButton}</m.div>
 
-            {/* Grid Container */}
-            <div className="grid grid-cols-1 gap-16 lg:grid-cols-4">
-              {/* Sidebar (Left) */}
-              <motion.div className="lg:col-span-1" variants={fadeUp}>
-                {sidebar}
-              </motion.div>
+          {/* Grid Container */}
+          <div className="grid grid-cols-1 gap-16 lg:grid-cols-4">
+            {/* Sidebar (Left) */}
+            <m.div className="lg:col-span-1" variants={fadeUp}>
+              {sidebar}
+            </m.div>
 
-              {/* Main Content (Right) */}
-              <motion.div className="lg:col-span-3" variants={fadeUp}>
-                {mainContent}
-              </motion.div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-      {/* Preload high-res images after animations complete */}
-      {animationComplete &&
-        preloadImages.map((src) => (
-          <Image
-            key={src}
-            src={src}
-            alt=""
-            width={1920}
-            height={1080}
-            className="hidden"
-            priority
-          />
-        ))}
-    </>
+            {/* Main Content (Right) */}
+            <m.div className="lg:col-span-3" variants={fadeUp}>
+              {mainContent}
+            </m.div>
+          </div>
+        </m.div>
+      </div>
+    </section>
   );
 }

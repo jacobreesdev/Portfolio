@@ -1,7 +1,7 @@
 'use client';
 
 import { ArrowRight, Code, Database, Palette, Smartphone } from 'lucide-react';
-import { motion } from 'motion/react';
+import * as m from 'motion/react-m';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -51,7 +51,7 @@ const features = [
     icon: Database,
     title: 'Backend, when it needs one',
     description:
-      'Node.js, tRPC, Drizzle, PostgreSQL, Firebase, TanStack Query, Zustand',
+      'Node.js, tRPC, GraphQL, PostgreSQL, Prisma, Firebase, Payload CMS, Sanity CMS',
     filterTag: 'Full-Stack',
     image: {
       src: '/images/skills/full-stack.webp',
@@ -65,8 +65,7 @@ const features = [
     id: 'mobile',
     icon: Smartphone,
     title: 'React Native plus native iOS',
-    description:
-      'React Native, Expo, Maestro, Swift, SwiftUI',
+    description: 'React Native, Expo, Swift, SwiftUI',
     filterTag: 'Mobile',
     image: {
       src: '/images/skills/mobile.webp',
@@ -81,7 +80,7 @@ const features = [
     icon: Palette,
     title: 'The rest of the toolkit',
     description:
-      'Figma, Storybook, Vitest, Playwright, GitHub Actions, Vercel, GTM',
+      'Figma, Storybook, Vitest, Playwright, Jest, GrowthBook, GTM/GA4, GitHub Actions, Vercel',
     filterTag: 'Tools & Design',
     image: {
       src: '/images/skills/design.webp',
@@ -127,7 +126,7 @@ export default function FeaturesCarousel() {
         {/* Left Content */}
         <div className="flex flex-col gap-8 lg:col-span-1">
           {/* Title and Description */}
-          <motion.div
+          <m.div
             className="space-y-4"
             initial={initial}
             whileInView="visible"
@@ -139,13 +138,13 @@ export default function FeaturesCarousel() {
               <span className="text-muted-foreground/80">Technologies</span>
             </h2>
             <p className="text-muted-foreground text-lg leading-snug">
-              React and TypeScript day-to-day, plus the backend and mobile
-              tools I reach for when a project needs them.
+              React and TypeScript day-to-day, plus the backend and mobile tools
+              I reach for when a project needs them.
             </p>
-          </motion.div>
+          </m.div>
 
           {/* Icon Buttons */}
-          <motion.div
+          <m.div
             className="mx-auto hidden max-w-[155px] grid-cols-2 justify-between gap-5 lg:grid"
             initial={initial}
             whileInView="visible"
@@ -157,7 +156,7 @@ export default function FeaturesCarousel() {
               const isActive = index === activeIndex;
 
               return (
-                <motion.button
+                <m.button
                   key={feature.id}
                   onClick={() => handleFeatureClick(index)}
                   variants={popIn}
@@ -169,14 +168,14 @@ export default function FeaturesCarousel() {
                   aria-label={feature.title}
                 >
                   <IconComponent className="size-5" strokeWidth={2.1} />
-                </motion.button>
+                </m.button>
               );
             })}
-          </motion.div>
+          </m.div>
         </div>
 
         {/* Right Content - Carousel Cards */}
-        <motion.div
+        <m.div
           className="relative select-none lg:col-span-2"
           initial={initial}
           whileInView="visible"
@@ -226,6 +225,7 @@ export default function FeaturesCarousel() {
                           src={feature.image.src}
                           alt={feature.image.alt}
                           fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                           className={cn(
                             'object-cover transition-transform duration-300 hover:scale-105',
                             feature.image.className,
@@ -241,7 +241,7 @@ export default function FeaturesCarousel() {
           </Carousel>
 
           {/* Mobile Icon Buttons */}
-          <motion.div
+          <m.div
             className="mx-auto my-8 flex max-w-md justify-between gap-4 lg:hidden"
             initial={initial}
             whileInView="visible"
@@ -253,7 +253,7 @@ export default function FeaturesCarousel() {
               const isActive = index === activeIndex;
 
               return (
-                <motion.button
+                <m.button
                   key={feature.id}
                   onClick={() => handleFeatureClick(index)}
                   variants={popIn}
@@ -265,11 +265,11 @@ export default function FeaturesCarousel() {
                   aria-label={feature.title}
                 >
                   <IconComponent className="size-5" strokeWidth={2.1} />
-                </motion.button>
+                </m.button>
               );
             })}
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       </div>
     </section>
   );

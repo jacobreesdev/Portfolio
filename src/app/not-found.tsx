@@ -1,7 +1,7 @@
 'use client';
 
 import { ChevronRight } from 'lucide-react';
-import { motion } from 'motion/react';
+import * as m from 'motion/react-m';
 import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
@@ -15,7 +15,7 @@ export default function NotFound() {
   return (
     <section className="section-padding relative container flex min-h-screen items-center justify-center">
       {/* Large 404 background text */}
-      <motion.div
+      <m.div
         className="absolute inset-0 flex items-center justify-center"
         initial={initial}
         animate="visible"
@@ -24,32 +24,32 @@ export default function NotFound() {
         <span className="text-muted/80 text-[12rem] font-bold select-none sm:text-[16rem] md:text-[25rem] lg:text-[32rem]">
           404
         </span>
-      </motion.div>
+      </m.div>
 
       {/* Main content */}
-      <motion.div
+      <m.div
         className="relative z-10 text-center"
         initial={initial}
         animate="visible"
         variants={heroContainer}
       >
-        <motion.h1
-          className="text-foreground mb-4 text-3xl font-bold md:text-4xl lg:text-5xl"
+        <m.h1
+          className="text-foreground mb-4 text-3xl font-semibold md:text-4xl lg:text-5xl"
           variants={fadeUp}
         >
           Page Not Found
-        </motion.h1>
+        </m.h1>
 
-        <motion.p
+        <m.p
           className="text-muted-foreground mx-auto mb-6 max-w-md text-sm md:text-base lg:text-lg"
           variants={fadeUp}
         >
           Broken link. Either yours or mine.
           <br />
           Let&apos;s assume mine.
-        </motion.p>
+        </m.p>
 
-        <motion.div variants={fadeUp}>
+        <m.div variants={fadeUp}>
           <Button asChild size="lg" className="group !pl-5.5 font-medium">
             <Link href="/">
               Return Home
@@ -58,8 +58,8 @@ export default function NotFound() {
               </div>
             </Link>
           </Button>
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
     </section>
   );
 }

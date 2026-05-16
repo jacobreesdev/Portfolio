@@ -1,9 +1,12 @@
 'use client';
 
 import { ArrowRight } from 'lucide-react';
-import { motion } from 'motion/react';
+import * as m from 'motion/react-m';
 import Image from 'next/image';
 import Link from 'next/link';
+
+const inlineLinkClassName =
+  'text-foreground decoration-muted-foreground/30 hover:decoration-foreground underline underline-offset-2 transition-all duration-300';
 
 import Noise from '@/components/noise';
 import { Button } from '@/components/ui/button';
@@ -21,7 +24,7 @@ import {
 const stats = [
   {
     id: 'students',
-    value: '1M+',
+    value: '500K+',
     label: 'Students Reached',
   },
   {
@@ -46,30 +49,46 @@ export default function WhyWeBegan() {
       <div className="container">
         <div className="flex flex-col items-center gap-8 md:flex-row-reverse lg:gap-12">
           {/* Content Section */}
-          <motion.div
+          <m.div
             className="flex-1 space-y-6 lg:space-y-8"
             initial={initial}
             whileInView="visible"
             viewport={scrollViewport}
             variants={staggerContainer}
           >
-            <motion.div className="space-y-6 lg:space-y-8" variants={fadeUp}>
+            <m.div className="space-y-6 lg:space-y-8" variants={fadeUp}>
               <h2 className="text-4xl tracking-tight lg:text-5xl">About Me</h2>
               <p className="text-muted-foreground text-lg leading-relaxed">
-                Front-End &amp; UX Engineer shipping React and TypeScript
-                products in higher education and e-commerce. 3+ years at
-                Revolution Viewing (Vepple) and Pavers, focused on
-                accessibility and A/B-tested conversions.
+                Frontend Engineer shipping React and TypeScript products in
+                higher education and e-commerce. 4 years at Revolution Viewing ({' '}
+                <Link
+                  href="https://vepple.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={inlineLinkClassName}
+                >
+                  Vepple
+                </Link>
+                ) and{' '}
+                <Link
+                  href="https://pavers.co.uk"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={inlineLinkClassName}
+                >
+                  Pavers
+                </Link>
+                , focused on accessibility and A/B-tested conversions.
               </p>
-            </motion.div>
+            </m.div>
 
             {/* Stats Cards */}
-            <motion.div
+            <m.div
               className="flex flex-1 flex-wrap gap-4"
               variants={staggerContainerFast}
             >
               {stats.map((stat) => (
-                <motion.div key={stat.id} variants={popIn} className="flex-1">
+                <m.div key={stat.id} variants={popIn} className="flex-1">
                   <Card className="min-w-[120px] gap-0 text-center">
                     <CardHeader className="pb-1">
                       <CardTitle className="text-3xl font-medium">
@@ -80,12 +99,12 @@ export default function WhyWeBegan() {
                       {stat.label}
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
-            </motion.div>
+            </m.div>
 
             {/* CTA Button */}
-            <motion.div variants={fadeUp}>
+            <m.div variants={fadeUp}>
               <Button
                 size="lg"
                 variant="outline"
@@ -93,15 +112,15 @@ export default function WhyWeBegan() {
                 asChild
               >
                 <Link href="/about">
-                  Learn More
+                  More About Jacob
                   <ArrowRight className="ml-2 size-4" />
                 </Link>
               </Button>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
 
           {/* Image Section - Hidden on mobile */}
-          <motion.div
+          <m.div
             className="relative hidden h-full w-full md:block md:w-[453px]"
             initial={initial}
             whileInView="visible"
@@ -117,10 +136,11 @@ export default function WhyWeBegan() {
                 src="/me.jpeg"
                 alt="Jacob Rees"
                 fill
+                sizes="(min-width: 1024px) 384px, (min-width: 768px) 320px, 100vw"
                 className="rounded-xl object-cover"
               />
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </section>

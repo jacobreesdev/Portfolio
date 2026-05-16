@@ -1,7 +1,7 @@
 ---
 title: 'MusicCount'
 category: 'Personal Project'
-description: 'Match your play counts before cleaning up duplicates.'
+description: 'MusicCount scans your Apple Music library, groups duplicates by title and artist, and matches play counts before you clean up.'
 technologies:
   ['Swift 6.1', 'SwiftUI', 'MediaPlayer', 'Swift Concurrency', 'Swift Testing']
 link: 'https://apps.apple.com/gb/app/musiccount/id6754639829'
@@ -11,11 +11,13 @@ year: '2025'
 featured: false
 ---
 
-## The Product
+## The product
 
-I built this because my own library was a mess. Years of re-importing albums and switching between Spotify and Apple Music left me with duplicate songs everywhere, each with different play counts. It was also my first Swift app. I wanted to learn iOS development properly, and building something I'd actually use seemed like the best way to do it.
+I built this because my own library was a mess. Years of re-importing albums and switching between Spotify and Apple Music left me with duplicate songs everywhere, each with different play counts. It was also my first Swift app — I wanted to learn iOS development properly, and building something I'd actually use seemed like the best way to do it. No data collection, no network calls, no external dependencies.
 
-MusicCount scans your library, groups duplicates by normalised title and artist, and lets you pick the version you want to keep. The app adds it to your queue enough times to match the play count of the duplicate - once played, you can delete the duplicate yourself (Apple Music's API doesn't allow apps to delete songs). Your listening history stays intact on the song that matters.
+MusicCount scans your library, groups duplicates by normalised title and artist, and lets you pick the version you want to keep. The app adds it to your queue enough times to match the play count of the duplicate — once played, you can delete the duplicate yourself (Apple Music's API doesn't allow apps to delete songs). Your listening history stays intact on the song that matters.
+
+**Stack:** Swift 6.1 · SwiftUI · MediaPlayer · Swift Concurrency · Swift Testing
 
 <div className="not-prose my-12">
   <ThemeAwareImage
@@ -48,7 +50,7 @@ MusicCount scans your library, groups duplicates by normalised title and artist,
 <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
   <div className="order-2 lg:order-1">
     <h3 className="text-foreground mb-4 text-xl font-semibold tracking-tight">
-      Intelligent Duplicate Detection
+      Intelligent duplicate detection
     </h3>
     <div className="space-y-4">
       <div className="text-muted-foreground leading-relaxed">
@@ -71,7 +73,8 @@ MusicCount scans your library, groups duplicates by normalised title and artist,
       }}
       dark={{
         src: '/portfolio/musiccount/musiccount-01-suggestions-dark-thumb.webp',
-        lightboxSrc: '/portfolio/musiccount/musiccount-01-suggestions-dark.webp',
+        lightboxSrc:
+          '/portfolio/musiccount/musiccount-01-suggestions-dark.webp',
       }}
       alt="Suggestions tab showing duplicate groups sorted by play count difference"
       loading="lazy"
@@ -106,7 +109,7 @@ MusicCount scans your library, groups duplicates by normalised title and artist,
   </div>
   <div className="order-2">
     <h3 className="text-foreground mb-4 text-xl font-semibold tracking-tight">
-      Interactive Play Count Comparison
+      Interactive play count comparison
     </h3>
     <div className="text-muted-foreground leading-relaxed">
       Side-by-side view with blurred album artwork. Tap the version to keep.
@@ -121,27 +124,21 @@ MusicCount scans your library, groups duplicates by normalised title and artist,
 
 ---
 
-## How It's Built
+## How it's built
 
-### Architecture Decisions
+### Architecture decisions
 
-**Native State Management:** iOS 17's observation system makes ViewModels optional. Views stay thin, business logic lives in services shared via dependency injection.
+**Native state management.** iOS 17's observation system makes ViewModels optional. Views stay thin, business logic lives in services shared via dependency injection.
 
-**Modular Package Architecture:** Features live in a Swift Package. The app target is a thin wrapper. Tests sit alongside feature code.
+**Modular package architecture.** Features live in a Swift Package. The app target is a thin wrapper. Tests sit alongside feature code.
 
-**Background Thread Scanning:** Library queries run off the main thread so the UI stays responsive during initial load.
-
----
-
-### Security & Privacy
-
-No data collection, no network calls, no external dependencies.
+**Background thread scanning.** Library queries run off the main thread so the UI stays responsive during initial load.
 
 ---
 
 ### Performance
 
-1.7MB app size. Background queries keep large libraries responsive.
+1.7 MB app size. Background queries keep large libraries responsive.
 
 ---
 
@@ -157,7 +154,7 @@ Swift Testing framework with coverage across grouping logic, dismissal persisten
 
 ---
 
-## Tech Stack
+## Full stack
 
 **UI:** SwiftUI (iOS 17.0+)
 

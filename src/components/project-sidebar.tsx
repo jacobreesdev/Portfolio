@@ -1,7 +1,7 @@
 'use client';
 
 import { ExternalLink, Github } from 'lucide-react';
-import { motion } from 'motion/react';
+import * as m from 'motion/react-m';
 import Link from 'next/link';
 
 import { fadeUp } from '@/lib/animations';
@@ -15,18 +15,18 @@ export function ProjectSidebar({ project }: ProjectSidebarProps) {
   return (
     <div className="space-y-8 lg:sticky lg:top-8">
       {/* Project Info */}
-      <motion.div variants={fadeUp}>
+      <m.div variants={fadeUp}>
         <p className="text-muted-foreground mb-4 text-xs font-semibold tracking-widest uppercase">
           {project.category}
         </p>
-        <h1 className="mb-4 text-4xl font-bold">{project.title}</h1>
+        <h1 className="mb-4 text-4xl font-semibold">{project.title}</h1>
         <p className="text-muted-foreground leading-relaxed">
           {project.description}
         </p>
-      </motion.div>
+      </m.div>
 
       {/* Metadata */}
-      <motion.div className="space-y-6 border-t pt-8" variants={fadeUp}>
+      <m.div className="space-y-6 border-t pt-8" variants={fadeUp}>
         <div>
           <p className="text-muted-foreground mb-1 text-xs font-semibold tracking-wider uppercase">
             Year
@@ -93,7 +93,7 @@ export function ProjectSidebar({ project }: ProjectSidebarProps) {
             </Link>
           </div>
         ) : null}
-      </motion.div>
+      </m.div>
     </div>
   );
 }

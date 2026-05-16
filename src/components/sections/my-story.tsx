@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'motion/react';
+import * as m from 'motion/react-m';
 import Link from 'next/link';
 
 import Noise from '@/components/noise';
@@ -15,21 +15,21 @@ export default function MyStory() {
     <section className="section-padding relative">
       <Noise />
       <div className="container">
-        <motion.div
+        <m.div
           className="mx-auto max-w-3xl space-y-6"
           initial={initial}
           whileInView="visible"
           viewport={scrollViewport}
           variants={staggerContainer}
         >
-          <motion.h2
+          <m.h2
             className="text-4xl tracking-tight lg:text-5xl"
             variants={fadeUp}
           >
             My Story
-          </motion.h2>
+          </m.h2>
 
-          <motion.div
+          <m.div
             className="text-muted-foreground space-y-6 text-lg leading-relaxed"
             variants={fadeUp}
           >
@@ -50,8 +50,8 @@ export default function MyStory() {
               >
                 final coding project
               </Link>
-              ), I&apos;ve spent the last 3+ years shipping React and
-              TypeScript products across higher education and e-commerce. At{' '}
+              ), I&apos;ve spent the last 4 years shipping React and TypeScript
+              products across higher education and e-commerce. At{' '}
               <Link
                 href="https://pavers.co.uk"
                 target="_blank"
@@ -72,9 +72,9 @@ export default function MyStory() {
               </Link>
               , a platform serving 30+ UK universities. I led front-end and UX
               on the original Vue.js build, then spearheaded the ground-up
-              rebuild to React, Next.js 16, and TypeScript with the CTO and Product
-              Manager, and mentored a junior engineer to independent delivery
-              in 4 weeks.
+              rebuild to React, Next.js 16, and TypeScript with the CTO and
+              Product Manager, and mentored a junior engineer to independent
+              delivery in 4 weeks.
             </p>
 
             <p>
@@ -85,12 +85,12 @@ export default function MyStory() {
             </p>
 
             <p>
-              I&apos;m now looking for a role where I can keep bridging design
-              and engineering, shipping accessible and measurable products with
-              a team that cares about doing things properly.
+              I bridge design and engineering, shipping accessible and
+              measurable products with teams that ship work they&apos;re proud
+              of.
             </p>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       </div>
     </section>
   );

@@ -1,7 +1,7 @@
 'use client';
 
 import { MapPin } from 'lucide-react';
-import { motion } from 'motion/react';
+import * as m from 'motion/react-m';
 import Image from 'next/image';
 
 import Noise from '@/components/noise';
@@ -15,7 +15,7 @@ import {
 } from '@/lib/animations';
 
 const stats = [
-  { id: 'students', number: '1M+', label: 'Students Reached' },
+  { id: 'students', number: '500K+', label: 'Students Reached' },
   { id: 'universities', number: '30+', label: 'Universities' },
   { id: 'shops', number: '160+', label: 'Shops' },
 ];
@@ -30,7 +30,7 @@ export default function AboutHero() {
       <div className="bigger-container">
         <div className="flex flex-col items-center gap-8 md:flex-row md:items-start lg:gap-16">
           {/* Profile Image */}
-          <motion.div
+          <m.div
             className="relative h-72 w-72 shrink-0 overflow-hidden rounded-2xl border md:h-80 md:w-80 lg:h-96 lg:w-96"
             initial={initial}
             animate="visible"
@@ -42,43 +42,44 @@ export default function AboutHero() {
               fill
               className="object-cover"
               priority
+              sizes="(min-width: 1024px) 384px, (min-width: 768px) 320px, 288px"
             />
-          </motion.div>
+          </m.div>
 
           {/* Content */}
-          <motion.div
+          <m.div
             className="flex-1 text-center md:text-left"
             initial={initial}
             animate="visible"
             variants={heroContainer}
           >
-            <motion.h1
+            <m.h1
               className="text-4xl font-medium tracking-tight md:text-5xl lg:text-6xl"
               variants={fadeUp}
             >
               Jacob Rees
-            </motion.h1>
-            <motion.p
+            </m.h1>
+            <m.p
               className="text-muted-foreground mt-2 text-xl md:text-2xl"
               variants={fadeUp}
             >
-              Front-End &amp; UX Engineer
-            </motion.p>
-            <motion.p
+              Frontend Engineer
+            </m.p>
+            <m.p
               className="text-muted-foreground mt-3 flex items-center justify-center gap-1.5 md:justify-start"
               variants={fadeUp}
             >
               <MapPin className="size-4" />
               Durham, England
-            </motion.p>
+            </m.p>
 
             {/* Stats Grid */}
-            <motion.div
+            <m.div
               className="mt-8 grid grid-cols-3 gap-6 lg:mt-12 lg:gap-8"
               variants={staggerContainerFast}
             >
               {stats.map((stat) => (
-                <motion.div
+                <m.div
                   key={stat.id}
                   className="border-input border-b pb-4"
                   variants={popIn}
@@ -89,10 +90,10 @@ export default function AboutHero() {
                   <div className="text-muted-foreground mt-1 text-sm md:text-base">
                     {stat.label}
                   </div>
-                </motion.div>
+                </m.div>
               ))}
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         </div>
       </div>
     </section>

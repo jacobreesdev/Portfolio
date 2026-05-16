@@ -12,8 +12,6 @@ import {
   CarouselItem,
 } from '@/components/ui/carousel';
 
-export const title = 'Carousel with Thumbnails';
-
 interface CarouselStandard2Props {
   images: string[];
   alt?: string | string[]; // Single alt or array of alts for each image
@@ -78,13 +76,13 @@ const CarouselStandard2 = ({
       >
         <CarouselContent>
           {images.map((image, index) => (
-            <CarouselItem key={index}>
+            <CarouselItem key={image}>
               <button
                 onClick={() =>
                   openLightbox(getLightboxImage(index), getAltText(index), true)
                 }
                 aria-label={`View larger version of ${getAltText(index)}`}
-                className="group focus:ring-primary relative flex aspect-[4/3] cursor-pointer items-center justify-center overflow-hidden rounded-xl bg-white focus:ring-2 focus:ring-offset-2 focus:outline-none dark:bg-black"
+                className="group focus:ring-primary relative flex aspect-[4/3] cursor-pointer items-center justify-center overflow-hidden rounded-xl bg-white focus:ring-2 focus:ring-offset-2 focus:outline-none dark:bg-zinc-950"
                 type="button"
               >
                 <Image
@@ -111,9 +109,9 @@ const CarouselStandard2 = ({
       </span>
 
       <div className="flex justify-center gap-2">
-        {images.map((_, index) => (
+        {images.map((image, index) => (
           <Button
-            key={index}
+            key={image}
             onClick={() => api?.scrollTo(index)}
             variant={current === index ? 'default' : 'outline'}
             size="sm"

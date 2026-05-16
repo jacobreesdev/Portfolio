@@ -24,10 +24,13 @@ export interface Project extends ProjectFrontmatter {
 }
 
 export function getProjectSlugs(): string[] {
-  const files = fs.readdirSync(projectsDirectory);
-  return files
-    .filter((file) => file.endsWith('.mdx'))
-    .map((file) => file.replace(/\.mdx$/, ''));
+  const slugs: string[] = [];
+  for (const file of fs.readdirSync(projectsDirectory)) {
+    if (file.endsWith('.mdx')) {
+      slugs.push(file.replace(/\.mdx$/, ''));
+    }
+  }
+  return slugs;
 }
 
 export const getProjectBySlug = cache((slug: string): Project | null => {
@@ -45,18 +48,4 @@ export const getProjectBySlug = cache((slug: string): Project | null => {
     content,
     ...(data as ProjectFrontmatter),
   };
-});
-
-export const getAllProjects = cache((): Project[] => {
-  const slugs = getProjectSlugs();
-  return slugs
-    .map((slug) => getProjectBySlug(slug))
-    .filter((project): project is Project => project !== null)
-    .sort((a, b) => {
-      // Featured projects first, then by year descending
-      if (a.featured !== b.featured) {
-        return a.featured ? -1 : 1;
-      }
-      return b.year.localeCompare(a.year);
-    });
 });

@@ -111,36 +111,25 @@ function extractHighResImages(
   content: string,
   heroLightboxSrc?: string,
 ): string[] {
-  const images: string[] = [];
+  const seen = new Set<string>();
 
-  // Add hero lightbox image if exists
   if (heroLightboxSrc) {
-    images.push(heroLightboxSrc);
+    seen.add(heroLightboxSrc);
   }
 
-  // Extract all thumbnail images and convert to high-res versions
   const thumbRegex = /\/portfolio\/[^"'\s]+-thumb\.webp/g;
-  const thumbMatches = content.match(thumbRegex) || [];
+  for (const thumb of content.match(thumbRegex) ?? []) {
+    seen.add(thumb.replace('-thumb.webp', '.webp'));
+  }
 
-  thumbMatches.forEach((thumb) => {
-    const highRes = thumb.replace('-thumb.webp', '.webp');
-    if (!images.includes(highRes)) {
-      images.push(highRes);
-    }
-  });
-
-  // Extract explicit lightboxSrc/highResImages from MDX
   const lightboxRegex =
     /(?:lightboxSrc|highResImages)=\{?\["?([^"'\]]+)"?\]?\}?/g;
   let match;
   while ((match = lightboxRegex.exec(content)) !== null) {
-    const src = match[1];
-    if (src && !images.includes(src)) {
-      images.push(src);
-    }
+    if (match[1]) seen.add(match[1]);
   }
 
-  return images;
+  return Array.from(seen);
 }
 
 export default async function ProjectPage({ params }: PageProps) {

@@ -21,10 +21,8 @@ export function ImpactMetrics({ metrics, className }: ImpactMetricsProps) {
             className="group border-border/50 bg-card/50 hover:bg-card/80 relative flex flex-col gap-2 rounded-lg border p-5 backdrop-blur-sm transition-colors duration-300 hover:border-amber-500/30 hover:shadow-lg"
           >
             {/* Metric value */}
-            <div className="text-4xl font-bold tracking-tight tabular-nums">
-              <span className="from-foreground to-foreground/60 bg-gradient-to-br bg-clip-text text-transparent">
-                {metric.value}
-              </span>
+            <div className="text-foreground text-4xl font-semibold tracking-tight tabular-nums">
+              {metric.value}
             </div>
 
             {/* Metric label */}

@@ -1,7 +1,7 @@
 'use client';
 
 import { ArrowRight } from 'lucide-react';
-import { motion } from 'motion/react';
+import * as m from 'motion/react-m';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -29,30 +29,30 @@ export default function FeaturesGrid() {
       <Noise />
       <div className="container">
         {/* Section Header */}
-        <motion.div
+        <m.div
           className="mx-auto max-w-5xl space-y-3 lg:space-y-4 lg:text-center"
           initial={initial}
           whileInView="visible"
           viewport={scrollViewport}
           variants={staggerContainer}
         >
-          <motion.h2
+          <m.h2
             className="text-4xl tracking-tight lg:text-5xl"
             variants={fadeUp}
           >
             Featured Projects
-          </motion.h2>
-          <motion.p
+          </m.h2>
+          <m.p
             className="text-muted-foreground text-lg leading-snug lg:text-balance"
             variants={fadeUp}
           >
             Production work for 30+ UK universities, a 160-store retailer, and
             three shipped side-projects.
-          </motion.p>
-        </motion.div>
+          </m.p>
+        </m.div>
 
         {/* Projects Grid */}
-        <motion.div
+        <m.div
           className="mt-8 grid grid-cols-1 gap-4 lg:mt-12 lg:grid-cols-6"
           initial={initial}
           whileInView="visible"
@@ -72,10 +72,10 @@ export default function FeaturesGrid() {
               className="h-full lg:col-span-2"
             />
           ))}
-        </motion.div>
+        </m.div>
 
         {/* View All Projects Button */}
-        <motion.div
+        <m.div
           className="mt-8 flex justify-center lg:mt-12"
           initial={initial}
           whileInView="visible"
@@ -88,7 +88,7 @@ export default function FeaturesGrid() {
               <ArrowRight className="ml-2 size-4" />
             </Link>
           </Button>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );
@@ -116,7 +116,7 @@ function ProjectCard({
   className,
 }: ProjectCardProps) {
   return (
-    <motion.div variants={fadeUpSmall} className={className}>
+    <m.div variants={fadeUpSmall} className={className}>
       <Link href={`/projects/${slug}`} className="group block h-full">
         <Card className="hover:border-primary/50 h-full transition-all duration-300 hover:shadow-lg">
           {/* Image Section */}
@@ -156,6 +156,6 @@ function ProjectCard({
           </CardHeader>
         </Card>
       </Link>
-    </motion.div>
+    </m.div>
   );
 }

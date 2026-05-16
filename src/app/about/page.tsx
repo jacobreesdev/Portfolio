@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
 export const metadata: Metadata = {
   title: 'About',
   description:
-    'Front-End & UX Engineer with 3+ years across higher education and e-commerce. Helped build Vepple (1M+ students, 12.13 pages per session) and Pavers (75+ components powering 160+ shops).',
+    'Frontend Engineer with 4 years across higher education and e-commerce. Helped build Vepple (500K+ students, 12.13 pages per session) and Pavers (75+ components powering 160+ shops).',
 };
 
 export default function AboutPage() {

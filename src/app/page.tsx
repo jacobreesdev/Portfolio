@@ -1,8 +1,16 @@
+import type { Metadata } from 'next';
+
 import AboutPreview from '@/components/sections/about-preview';
 import FeaturedProjects from '@/components/sections/featured-projects';
 import Hero from '@/components/sections/hero';
 import SkillsCarousel from '@/components/sections/skills-carousel';
 import TechStack from '@/components/sections/tech-stack';
+
+export const metadata: Metadata = {
+  title: 'Home',
+  description:
+    'Frontend Engineer shipping React and TypeScript products from Figma to production — Vepple, Pavers, CanonCore, and more.',
+};
 
 export default function Home() {
   return (

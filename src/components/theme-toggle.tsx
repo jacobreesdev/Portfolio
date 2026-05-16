@@ -1,6 +1,6 @@
 'use client';
 
-import { motion as m } from 'motion/react';
+import * as m from 'motion/react-m';
 import { useTheme } from 'next-themes';
 
 import { Button } from '@/components/ui/button';
@@ -164,7 +164,8 @@ export function ThemeToggle() {
 
         <m.path
           d={sunPath}
-          fill="transparent"
+          fill="var(--color-foreground)"
+          stroke="var(--color-foreground)"
           transition={{
             duration: prefersReducedMotion ? 0 : 1,
             type: prefersReducedMotion ? 'tween' : 'spring',
@@ -174,8 +175,6 @@ export function ThemeToggle() {
             d: theme === 'dark' ? moonPath : sunPath,
             rotate: prefersReducedMotion ? 0 : theme === 'dark' ? -360 : 0,
             scale: prefersReducedMotion ? 1 : theme === 'dark' ? 2 : 1,
-            stroke: 'var(--color-foreground)',
-            fill: 'var(--color-foreground)',
             fillOpacity: 0.35,
             strokeOpacity: 1,
             transition: { delay: prefersReducedMotion ? 0 : 0.1 },

@@ -17,6 +17,7 @@ export interface ProjectMeta {
   tags: string[];
   image: string;
   featured: boolean;
+  hidden?: boolean;
   icon: LucideIcon;
   link?: string;
   links?: { label: string; url: string }[];
@@ -31,43 +32,40 @@ export const PROJECT_TAGS = [
   'Tools & Design',
 ] as const;
 
-export type ProjectTag = (typeof PROJECT_TAGS)[number];
-
 /**
  * Single source of truth for project metadata used across the site.
  * For full project content (MDX), use lib/projects.ts which reads from content files.
  */
-export const PROJECTS: ProjectMeta[] = [
+const ALL_PROJECTS: ProjectMeta[] = [
   {
     slug: 'canoncore',
     title: 'CanonCore',
     category: 'Personal Project',
     description:
-      'Plex meets Obsidian for personal media libraries. Cross-platform monorepo (Next.js 16 + Expo) with a DAG-backed library and force-directed graph view.',
+      'Turns Google Drive into a Netflix-style media library — playlists, watch progress, sharing, and a canonical metadata model across TMDB, Google Books, and MusicBrainz.',
     shortDescription: 'Full-stack media library',
     technologies: [
       'Next.js',
-      'Expo',
+      'React Native',
       'TypeScript',
-      'tRPC',
-      'Drizzle',
       'PostgreSQL',
-      'PIXI.js',
-      'Inngest',
+      'Drizzle ORM',
+      'Clerk',
+      'Google Drive API',
     ],
-    tags: ['Front-End', 'Full-Stack', 'Mobile', 'Tools & Design'],
+    tags: ['Front-End', 'Full-Stack', 'Tools & Design'],
     image: '/images/canoncore.webp',
     featured: true,
     icon: MonitorPlay,
-    link: 'https://demo.canoncore.com',
-    github: 'https://github.com/jacobreesgit/canoncore-v2',
+    link: 'https://www.canoncore.com',
+    github: 'https://github.com/jacobreesdev/Canoncore',
   },
   {
     slug: 'vepple',
     title: 'Vepple',
     category: 'Client Work',
     description:
-      'Virtual campus tour platform serving 30+ UK universities. 1M+ students, 12.13 pages per session, and +19.2% click rate uplift from production A/B tests.',
+      'Virtual campus tour platform serving 30+ UK universities. 500K+ students, 12.13 pages per session, and +19.2% click rate uplift from production A/B tests.',
     shortDescription: 'Virtual campus tours',
     technologies: [
       'Vue.js',
@@ -106,7 +104,6 @@ export const PROJECTS: ProjectMeta[] = [
     image: '/images/waveger.webp',
     featured: true,
     icon: Headphones,
-    link: 'https://waveger.vercel.app',
   },
   {
     slug: 'pavers',
@@ -115,7 +112,13 @@ export const PROJECTS: ProjectMeta[] = [
     description:
       'WCAG 2.1 AA-compliant component library (75+ components across 5+ brands) and personalisation engine for a UK footwear retailer with 160+ shops.',
     shortDescription: 'E-commerce components',
-    technologies: ['React', 'Shopify Liquid', 'Sanity CMS', 'Algolia', 'Storybook'],
+    technologies: [
+      'React',
+      'Shopify Liquid',
+      'Sanity CMS',
+      'Algolia',
+      'Storybook',
+    ],
     tags: ['Front-End', 'Tools & Design'],
     image: '/images/pavers.webp',
     featured: false,
@@ -142,5 +145,5 @@ export const PROJECTS: ProjectMeta[] = [
   },
 ];
 
+export const PROJECTS: ProjectMeta[] = ALL_PROJECTS.filter((p) => !p.hidden);
 export const FEATURED_PROJECTS = PROJECTS.filter((p) => p.featured);
-export const SECONDARY_PROJECTS = PROJECTS.filter((p) => !p.featured);

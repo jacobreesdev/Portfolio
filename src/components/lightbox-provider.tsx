@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, type ReactNode, useContext, useState } from 'react';
+import { createContext, type ReactNode, use, useState } from 'react';
 
 import { ImageLightbox } from './image-lightbox';
 
@@ -38,7 +38,7 @@ export function LightboxProvider({ children }: { children: ReactNode }) {
 }
 
 export function useLightbox() {
-  const context = useContext(LightboxContext);
+  const context = use(LightboxContext);
   if (!context) {
     throw new Error('useLightbox must be used within LightboxProvider');
   }
