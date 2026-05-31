@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useCallback, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 import { useLightbox } from '@/components/lightbox-provider';
 import { Button } from '@/components/ui/button';
@@ -25,7 +25,7 @@ const CarouselStandard2 = ({
   highResImages,
   buttonLabels,
 }: CarouselStandard2Props) => {
-  const [api, setApi] = useState<CarouselApi>();
+  const apiRef = useRef<CarouselApi>(undefined);
   const [current, setCurrent] = useState(0);
   const { openLightbox } = useLightbox();
 
@@ -57,7 +57,7 @@ const CarouselStandard2 = ({
   );
 
   const handleApiChange = (newApi: CarouselApi) => {
-    setApi(newApi);
+    apiRef.current = newApi;
 
     if (newApi) {
       setCurrent(newApi.selectedScrollSnap());
@@ -112,7 +112,7 @@ const CarouselStandard2 = ({
         {images.map((image, index) => (
           <Button
             key={image}
-            onClick={() => api?.scrollTo(index)}
+            onClick={() => apiRef.current?.scrollTo(index)}
             variant={current === index ? 'default' : 'outline'}
             size="sm"
           >

@@ -1,6 +1,13 @@
 'use client';
 
-import { createContext, type ReactNode, use, useState } from 'react';
+import {
+  createContext,
+  type ReactNode,
+  use,
+  useCallback,
+  useMemo,
+  useState,
+} from 'react';
 
 import { ImageLightbox } from './image-lightbox';
 
@@ -19,12 +26,17 @@ export function LightboxProvider({ children }: { children: ReactNode }) {
     showCaption: boolean;
   } | null>(null);
 
-  const openLightbox = (src: string, alt: string, showCaption = true) => {
-    setLightboxImage({ src, alt, showCaption });
-  };
+  const openLightbox = useCallback(
+    (src: string, alt: string, showCaption = true) => {
+      setLightboxImage({ src, alt, showCaption });
+    },
+    [],
+  );
+
+  const value = useMemo(() => ({ openLightbox }), [openLightbox]);
 
   return (
-    <LightboxContext.Provider value={{ openLightbox }}>
+    <LightboxContext.Provider value={value}>
       {children}
       <ImageLightbox
         src={lightboxImage?.src || ''}

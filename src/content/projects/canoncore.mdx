@@ -1,7 +1,7 @@
 ---
 title: 'CanonCore'
 category: 'Personal Project'
-description: 'CanonCore turns Google Drive into a Netflix-style media library — playlists, watch progress, sharing, and a canonical metadata model across TMDB, Google Books, MusicBrainz, and custom providers.'
+description: 'CanonCore turns Google Drive into a Netflix-style media library: playlists, watch progress, sharing, and a canonical metadata model across TMDB, Google Books, MusicBrainz, and custom providers.'
 technologies:
   [
     'Next.js',
@@ -21,9 +21,9 @@ featured: true
 
 ## The product
 
-CanonCore turns Google Drive into a Netflix-style media library: visual browsing, playlists, watch progress, public sharing, and a canonical metadata model across [TMDB](https://www.themoviedb.org), [Google Books](https://books.google.com), [MusicBrainz](https://musicbrainz.org), and custom providers — without moving or duplicating your files. The name comes from "canon" because every item carries a single canonical metadata shape regardless of source. One canonical item can live in many collections via a Postgres DAG, so the same film can appear in "Sci-Fi", "Watched in 2025", and a chronology — without duplication.
+CanonCore turns Google Drive into a Netflix-style media library: visual browsing, playlists, watch progress, public sharing, and a canonical metadata model across [TMDB](https://www.themoviedb.org), [Google Books](https://books.google.com), [MusicBrainz](https://musicbrainz.org), and custom providers, without moving or duplicating your files. The name comes from "canon" because every item carries a single canonical metadata shape regardless of source. One canonical item can live in many collections via a Postgres DAG, so the same film can appear in "Sci-Fi", "Watched in 2025", and a chronology, without duplication.
 
-I use this daily for my own movie, audiobook, and reading library. The next chapter is a React Native (Expo) iOS client — the server-shaped DTOs, byte-range media proxy, and OAuth flow were designed not to assume a browser, so the same data layer should serve a mobile client without refactor.
+I use this daily for my own movie, audiobook, and reading library. The next chapter is a React Native (Expo) iOS client: the server-shaped DTOs, byte-range media proxy, and OAuth flow were designed not to assume a browser, so the same data layer should serve a mobile client without refactor.
 
 **Stack:** Next.js · React Native (Expo) · TypeScript · PostgreSQL · Drizzle ORM · Clerk · Google Drive API · Playwright · Storybook
 
@@ -46,13 +46,13 @@ I use this daily for my own movie, audiobook, and reading library. The next chap
         Tree (file-explorer view of all descendants at once). Each item carries
         a hero banner, plus an "Also appears in" panel showing every other
         collection the same canonical item lives in, and an ordered chronology
-        view for container-kind parents. Nine typed relationships — adaptation,
+        view for container-kind parents. Nine typed relationships (adaptation,
         sequel, prequel, reference, crossover, novelisation, commentary,
-        companion release, spin-off — connect items so a film and its
+        companion release, spin-off) connect items so a film and its
         novelisation don't have to live as the same record.
       </div>
       <div className="text-muted-foreground leading-relaxed">
-        Drag-and-drop reorder and reparent works per-placement — moving a film
+        Drag-and-drop reorder and reparent works per-placement: moving a film
         inside "Sci-Fi" never affects its appearance in "Watched in 2025". The
         placement picker rejects cycles, self-placement, and duplicate parents
         in the UI before save, with a matching database-level constraint that
@@ -104,12 +104,12 @@ I use this daily for my own movie, audiobook, and reading library. The next chap
       </div>
       <div className="text-muted-foreground leading-relaxed">
         Video and audio play through the native HTML media APIs with timeline
-        scrubbing, captions, and Media Session readiness — no heavy player
+        scrubbing, captions, and Media Session readiness, with no heavy player
         library. PDFs render on [PDF.js](https://mozilla.github.io/pdf.js/);
         EPUBs render on [EPUB.js](https://github.com/futurepress/epub.js/) after
         spiking Readium and foliate-js. Progress is persisted per version, so
-        resume always returns to the exact cut — extended, dubbed, or alternate
-        master — you watched last.
+        resume always returns to the exact cut (extended, dubbed, or alternate
+        master) you watched last.
       </div>
     </div>
   </div>
@@ -132,10 +132,10 @@ I use this daily for my own movie, audiobook, and reading library. The next chap
         follows item kind; owners apply, keep, or skip each field individually.
       </div>
       <div className="text-muted-foreground leading-relaxed">
-        Per-field provenance is tracked and surfaced as chips on the item detail
-        — at a glance you can tell which fields came from a provider, which you
-        typed yourself, and which the system derived. Re-enrichment never
-        silently clears manual overrides; per-field delta states make the
+        Per-field provenance is tracked and surfaced as chips on the item
+        detail: at a glance you can tell which fields came from a provider,
+        which you typed yourself, and which the system derived. Re-enrichment
+        never silently clears manual overrides; per-field delta states make the
         decision visible before commit. Custom providers can be added through
         Settings, with server-side token storage and strict request validation
         that rejects unknown fields at the boundary.
@@ -180,7 +180,7 @@ I use this daily for my own movie, audiobook, and reading library. The next chap
     <div className="space-y-4">
       <div className="text-muted-foreground leading-relaxed">
         Files stay in your Drive. CanonCore connects through OAuth 2.0 with PKCE
-        and per-file scope — only the files you hand over via the Google Picker
+        and per-file scope: only the files you hand over via the Google Picker
         are ever visible to the app. Refresh tokens are envelope-encrypted at
         rest. A managed CanonCore folder is created or reused as the bounded
         source scope, and the Storage settings surface the current connection
@@ -188,13 +188,13 @@ I use this daily for my own movie, audiobook, and reading library. The next chap
       </div>
       <div className="text-muted-foreground leading-relaxed">
         Change detection runs on a polling baseline over Vercel Cron, so
-        correctness never depends on push delivery — push channels layer in as a
+        correctness never depends on push delivery. Push channels layer in as a
         latency optimisation when available. Exponential backoff on rate limits,
         repair-sync on token rejection, and a fallback path for Google-native
         Workspace types where the standard revision marker isn't populated.
       </div>
       <div className="text-muted-foreground leading-relaxed">
-        Bidirectional writes — rename, move, trash — use idempotency keys so
+        Bidirectional writes (rename, move, trash) use idempotency keys so
         retries never double-write, with destructive-action confirmation on
         trash and no silent deletion in response to a Drive trash signal. Eleven
         of the twelve base operations are bidirectional under the per-file
@@ -213,7 +213,7 @@ I use this daily for my own movie, audiobook, and reading library. The next chap
     </h3>
     <div className="space-y-4">
       <div className="text-muted-foreground leading-relaxed">
-        Three-state visibility — private, public, or inherit — applies to
+        Three-state visibility (private, public, or inherit) applies to
         profiles, items, and entities. Effective visibility is computed per
         item-path: a direct "Public" flag never overrides a private ancestor,
         and "Inherit" resolves through any public-safe path while private paths
@@ -222,14 +222,14 @@ I use this daily for my own movie, audiobook, and reading library. The next chap
       </div>
       <div className="text-muted-foreground leading-relaxed">
         Before any public-making mutation, a mandatory payload preview shows
-        three panels — what *will* be public, what *won't* be, and the counts
-        that get withheld — with hard-blocker vs attention-warning severity. The
+        three panels (what *will* be public, what *won't* be, and the counts
+        that get withheld) with hard-blocker vs attention-warning severity. The
         server re-validates the whole decision before committing; stale previews
         are rejected with a refresh prompt rather than committing the wrong
         call.
       </div>
       <div className="text-muted-foreground leading-relaxed">
-        Four public routes ship — Explore, profile, public item, public entity.
+        Four public routes ship: Explore, profile, public item, public entity.
         Signed-out and signed-in non-owner viewers see identical content; public
         surfaces never branch on whether someone has an account, and generic
         not-found semantics never reveal private existence. Public Explore holds
@@ -278,7 +278,7 @@ I use this daily for my own movie, audiobook, and reading library. The next chap
         spanning items, entities, actions, and settings.
       </div>
       <div className="text-muted-foreground leading-relaxed">
-        On public routes the palette searches public-shaped content only — the
+        On public routes the palette searches public-shaped content only. The
         same component never leaks owner-only data depending on where it
         renders.
       </div>
@@ -294,70 +294,35 @@ I use this daily for my own movie, audiobook, and reading library. The next chap
 
 ### Architecture decisions
 
-**Postgres DAG for placements.** A personal media library is naturally a graph, not a tree — one canonical item (a film, a track, an episode) belongs in many collections. I modelled placement as a directed acyclic graph in Postgres because it lets cycle prevention live at the database boundary, not the application layer — which matters because the same data will eventually be written from a mobile client too. Reorder, reparent, and remove are safe per-placement: moving a film inside "Sci-Fi" doesn't touch its appearance in "Watched in 2025".
+**Postgres DAG for placements.** A personal media library is naturally a graph, not a tree: one canonical item (a film, a track, an episode) belongs in many collections. I modelled placement as a directed acyclic graph in Postgres because it lets cycle prevention live at the database boundary, not the application layer, which matters because the same data will eventually be written from a mobile client too. Reorder, reparent, and remove are safe per-placement: moving a film inside "Sci-Fi" doesn't touch its appearance in "Watched in 2025". A `BEFORE INSERT OR UPDATE` trigger walks the ancestor graph with a recursive CTE and rejects any placement that would form a cycle, so every client (web, mobile, future API) gets the same guarantee at write time.
 
-```sql
--- placements(item_id, parent_id) — each row places one item under another.
--- Cycle prevention runs in the database, so any client — web, mobile,
--- future API — gets the same guarantee at write time.
-CREATE FUNCTION prevent_placement_cycles() RETURNS TRIGGER AS $$
-BEGIN
-  IF NEW.parent_id IS NULL THEN
-    RETURN NEW;
-  END IF;
+**Drive byte-range proxy, not direct links.** Google's `webContentLink` URLs work, but they leak the file ID, the OAuth scope, and the user's auth context the moment they reach a browser. Streaming through a server-side proxy lets me hold the token server-side, sign nothing into the client, and return a clean 404 to anonymous viewers instead of an authentication redirect that would confirm a private file exists. The cost is one extra hop; the win is that no Drive identifier ever touches a browser.
 
-  -- Walk up the item graph from the proposed parent. If the child
-  -- ever appears as an ancestor, the placement would form a cycle.
-  IF EXISTS (
-    WITH RECURSIVE ancestors(item_id) AS (
-        SELECT NEW.parent_id
-      UNION ALL
-        SELECT p.parent_id
-        FROM placements p
-        JOIN ancestors a ON p.item_id = a.item_id
-        WHERE p.parent_id IS NOT NULL
-    )
-    SELECT 1 FROM ancestors WHERE item_id = NEW.item_id
-  ) THEN
-    RAISE EXCEPTION 'placement would create a cycle';
-  END IF;
+**Public DTOs as allow-lists, not filtered subsets.** The instinct is to start with the internal type and remove the private fields. The problem is that every new column added to the internal type then has to be remembered as a "remove this from the public response" line, and one day someone forgets. I chose the opposite: the public DTOs are built from explicit allow-lists, and a strict-parse layer rejects unknown keys. Tests cover thirteen exclusion categories per public route: raw provider payloads, private ancestors, internal IDs, OAuth scopes, Drive identifiers, owner controls, withheld counts, and so on.
 
-  RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE TRIGGER placements_no_cycles
-  BEFORE INSERT OR UPDATE ON placements
-  FOR EACH ROW EXECUTE FUNCTION prevent_placement_cycles();
-```
-
-**Drive byte-range proxy, not direct links.** Google's `webContentLink` URLs work — but they leak the file ID, the OAuth scope, and the user's auth context the moment they reach a browser. Streaming through a server-side proxy lets me hold the token server-side, sign nothing into the client, and return a clean 404 to anonymous viewers instead of an authentication redirect that would confirm a private file exists. The cost is one extra hop; the win is that no Drive identifier ever touches a browser.
-
-**Public DTOs as allow-lists, not filtered subsets.** The instinct is to start with the internal type and remove the private fields. The problem is that every new column added to the internal type then has to be remembered as a "remove this from the public response" line — and one day someone forgets. I chose the opposite: the public DTOs are built from explicit allow-lists, and a strict-parse layer rejects unknown keys. Tests cover thirteen exclusion categories per public route — raw provider payloads, private ancestors, internal IDs, OAuth scopes, Drive identifiers, owner controls, withheld counts, and so on.
-
-**Activity as a single-table-inheritance schema.** Around twenty-five source-neutral event types live in one table — typed columns for shared payload, a discriminator for the variant. A transactional helper guarantees each event commits atomically with the mutation that produced it, so the feed never shows a write that didn't happen. Per-type throttling keeps the feed legible: a progress save doesn't pollute it, and a re-enrichment isn't logged every keystroke.
+**Activity as a single-table-inheritance schema.** Around twenty-five source-neutral event types live in one table: typed columns for shared payload, a discriminator for the variant. A transactional helper guarantees each event commits atomically with the mutation that produced it, so the feed never shows a write that didn't happen. Per-type throttling keeps the feed legible: a progress save doesn't pollute it, and a re-enrichment isn't logged every keystroke.
 
 ---
 
 ### Security
 
-Drive refresh tokens are envelope-encrypted at rest, so a database compromise alone doesn't expose Drive access. Custom provider tokens are stored server-side only and are never echoed back to the client after save. Stack traces, raw OAuth errors, raw provider payloads, and raw Drive responses stay out of client-facing error UI — leaking those would help an attacker, not the user. OWASP security headers ship on every route. Sentry is configured with PII scrub rules to prevent token, source-identifier, owner-email, and Drive-resource-key leakage. Strict request validation rejects unknown keys at every trust boundary. Row-level security backs every owner-scoped table at the database, not just the application.
+Drive refresh tokens are envelope-encrypted at rest, so a database compromise alone doesn't expose Drive access. Custom provider tokens are stored server-side only and are never echoed back to the client after save. Stack traces, raw OAuth errors, raw provider payloads, and raw Drive responses stay out of client-facing error UI. Leaking those would help an attacker, not the user. OWASP security headers ship on every route. Sentry is configured with PII scrub rules to prevent token, source-identifier, owner-email, and Drive-resource-key leakage. Strict request validation rejects unknown keys at every trust boundary. Row-level security backs every owner-scoped table at the database, not just the application.
 
 ---
 
 ### Performance and accessibility
 
-Public Explore scores **96 on Lighthouse Performance** in production. The budget is bought through caching strategy and bundle discipline — not edge runtime, not SSG-everywhere, not third-party CDN. Public surfaces hit all three Core Web Vitals in the "good" band: **LCP under 2.5 s, INP under 200 ms, CLS under 0.1**, with TTFB under 200 ms on simulated 4G and the initial JavaScript bundle under **150 KB compressed**. Authenticated pages hold TTFB under 500 ms and LCP under 3 s on a warm session. A typical mutation completes in under 800 ms server time end-to-end. Long-running flows are stale-state aware: a preview that's gone stale gets rejected with a refresh prompt rather than committing the wrong decision.
+Public Explore scores **96 on Lighthouse Performance** in production. The budget is bought through caching strategy and bundle discipline, not edge runtime, not SSG-everywhere, not third-party CDN. Public surfaces hit all three Core Web Vitals in the "good" band: **LCP under 2.5 s, INP under 200 ms, CLS under 0.1**, with TTFB under 200 ms on simulated 4G and the initial JavaScript bundle under **150 KB compressed**. Authenticated pages hold TTFB under 500 ms and LCP under 3 s on a warm session. A typical mutation completes in under 800 ms server time end-to-end. Long-running flows are stale-state aware: a preview that's gone stale gets rejected with a refresh prompt rather than committing the wrong decision.
 
-Accessibility holds at WCAG 2.2 AA throughout (backwards-compatible with the WCAG 2.1 AA most policies still reference). Every interactive control is keyboard reachable with visible focus and no traps; icon-only controls have accessible names; state is carried by text or icon alongside any colour treatment. Touch targets hold the 44×44 minimum — well above WCAG 2.2's 24×24 floor. The PDF and EPUB viewers are keyboard- and touch-navigable, captions render when sources provide them, autoplay-with-sound is blocked, and reduced-motion is respected across all transitions. Per-item playback progress writes go through both a rate-limited Server Action and a beacon Route Handler — `sendBeacon`, not `beforeunload` — so progress survives a tab close. The UI never claims "Saved" on a write that didn't persist.
+Accessibility holds at WCAG 2.2 AA throughout (backwards-compatible with the WCAG 2.1 AA most policies still reference). Every interactive control is keyboard reachable with visible focus and no traps; icon-only controls have accessible names; state is carried by text or icon alongside any colour treatment. Touch targets hold the 44×44 minimum, well above WCAG 2.2's 24×24 floor. The PDF and EPUB viewers are keyboard- and touch-navigable, captions render when sources provide them, autoplay-with-sound is blocked, and reduced-motion is respected across all transitions. Per-item playback progress writes go through both a rate-limited Server Action and a beacon Route Handler (`sendBeacon`, not `beforeunload`) so progress survives a tab close. The UI never claims "Saved" on a write that didn't persist.
 
 ---
 
 ### Testing and operations
 
-Vitest for unit, [PGlite](https://pglite.dev)-backed Postgres for integration (no mocks at the data layer — RLS factories test the real policies), Playwright for end-to-end on Chromium locally and Chromium + Firefox in CI. Negative tests are written explicitly across the public/private, provider, Drive, upload, and auth boundaries. Storybook covers state, responsive, dark-mode, failure, loading, and accessibility variants.
+Vitest for unit, [PGlite](https://pglite.dev)-backed Postgres for integration (no mocks at the data layer, RLS factories test the real policies), Playwright for end-to-end on Chromium locally and Chromium + Firefox in CI. Negative tests are written explicitly across the public/private, provider, Drive, upload, and auth boundaries. Storybook covers state, responsive, dark-mode, failure, loading, and accessibility variants.
 
-GitHub Actions runs a quality gate per push — lint, type check, dependency check, locale parity check — then unit + integration + E2E tests. Conventional Commits with allowed types; named exports throughout (defaults reserved for Next.js pages); TypeScript end-to-end, with Zod narrowing preferred over casts. Sentry environment + release tagging makes error frequency by release queryable. Every user-visible string routes through [next-intl](https://next-intl.dev) on both server and client; locale-aware metadata is generated server-side from public-safe DTOs only.
+GitHub Actions runs a quality gate per push: lint, type check, dependency check, and locale parity check, then unit + integration + E2E tests. Conventional Commits with allowed types; named exports throughout (defaults reserved for Next.js pages); TypeScript end-to-end, with Zod narrowing preferred over casts. Sentry environment + release tagging makes error frequency by release queryable. Every user-visible string routes through [next-intl](https://next-intl.dev) on both server and client; locale-aware metadata is generated server-side from public-safe DTOs only.
 
 ---
 

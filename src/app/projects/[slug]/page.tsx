@@ -82,8 +82,13 @@ const mdxComponents = {
   ThemeAwareCarousel,
   ThemeAwareCarousel2,
   ThemeAwareImage,
-  a: (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
-    <a {...props} target="_blank" rel="noopener noreferrer" />
+  a: ({
+    children,
+    ...props
+  }: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
+    <a {...props} target="_blank" rel="noopener noreferrer">
+      {children}
+    </a>
   ),
   img: (props: {
     src?: string;

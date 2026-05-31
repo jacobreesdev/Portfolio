@@ -1,0 +1,15 @@
+{
+  "$schema": "https://www.react.doctor/schema/config.json",
+  "ignore": {
+    "overrides": [
+      {
+        "files": ["src/components/ui/carousel-item.tsx"],
+        "rules": ["react-doctor/prefer-tag-over-role"]
+      },
+      {
+        "files": ["src/components/image-lightbox.tsx"],
+        "rules": ["react-doctor/no-event-handler"]
+      }
+    ]
+  }
+}

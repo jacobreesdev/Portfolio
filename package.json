@@ -14,7 +14,8 @@
     "check": "rm -rf .next && npm run format && npm run lint && npm run type-check && npm run knip && npm run build",
     "lint:fix": "next lint --fix || true",
     "optimize-image": "node scripts/optimize-image.mjs",
-    "optimize-portfolio": "node scripts/batch-optimize-portfolio.mjs"
+    "optimize-portfolio": "node scripts/batch-optimize-portfolio.mjs",
+    "doctor": "npx react-doctor@latest"
   },
   "dependencies": {
     "@next/mdx": "^16.2.6",
@@ -50,6 +51,7 @@
     "postcss": "^8.5.14",
     "prettier": "^3.8.3",
     "prettier-plugin-tailwindcss": "^0.6.14",
+    "react-doctor": "^0.2.14",
     "sharp": "^0.34.5",
     "tailwindcss": "^4.3.0",
     "tw-animate-css": "^1.3.7",

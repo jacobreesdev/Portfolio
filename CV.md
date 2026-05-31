@@ -1,6 +1,6 @@
 # **Jacob Rees \- Frontend Engineer**
 
-Durham | [\+44 7519 411909](tel:+447519411909) | [jacobrees@me.com](mailto:jacobrees@me.com) | [linkedin.com/in/jacobreesdev](http://linkedin.com/in/jacobreesdev) | [github.com/jacobreesdev](http://github.com/jacobreesdev) | [jacobrees.co.uk](http://jacobrees.co.uk)
+London | [\+44 7519 411909](tel:+447519411909) | [jacobrees@me.com](mailto:jacobrees@me.com) | [linkedin.com/in/jacobreesdev](http://linkedin.com/in/jacobreesdev) | [github.com/jacobreesdev](http://github.com/jacobreesdev) | [jacobrees.co.uk](http://jacobrees.co.uk)
 
 ## **PROFESSIONAL SUMMARY**
 

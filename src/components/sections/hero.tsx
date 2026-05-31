@@ -15,6 +15,11 @@ import { useMediaQuery } from '@/hooks/use-media-query';
 import usePrefersReducedMotion from '@/hooks/usePrefersReducedMotion';
 import { fadeIn, fadeUp, heroContainer, scaleUp } from '@/lib/animations';
 
+// Light theme colors matching the original gradient
+const lightColors = ['#e0eaff', '#241d9a', '#f75092', '#9f50d3'];
+// Dark theme - richer, more visible colors
+const darkColors = ['#1a1a2e', '#4a148c', '#880e4f', '#311b92'];
+
 export default function Hero() {
   const prefersReducedMotion = usePrefersReducedMotion();
   const initial = prefersReducedMotion ? 'visible' : 'hidden';
@@ -28,11 +33,6 @@ export default function Hero() {
   useEffect(() => {
     queueMicrotask(() => setMounted(true));
   }, []);
-
-  // Light theme colors matching the original gradient
-  const lightColors = ['#e0eaff', '#241d9a', '#f75092', '#9f50d3'];
-  // Dark theme - richer, more visible colors
-  const darkColors = ['#1a1a2e', '#4a148c', '#880e4f', '#311b92'];
 
   const gradientColors = resolvedTheme === 'dark' ? darkColors : lightColors;
 

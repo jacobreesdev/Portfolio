@@ -117,7 +117,7 @@ const Footer = () => {
 
         <div className="mt-15 flex flex-col items-center justify-between gap-4 md:mt-20 md:flex-row">
           <p className="text-muted-foreground text-sm">
-            Based in Durham, England
+            Based in London, England
           </p>
 
           <p className="text-muted-foreground text-sm" suppressHydrationWarning>

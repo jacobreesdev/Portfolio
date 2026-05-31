@@ -134,7 +134,7 @@ export default function ContactContent() {
             </p>
             <p className="text-muted-foreground flex items-center gap-1.5">
               <MapPin className="size-4" />
-              Durham, England · Remote or hybrid
+              London, England · Remote or hybrid
             </p>
           </m.div>
         </m.div>

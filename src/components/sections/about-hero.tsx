@@ -70,7 +70,7 @@ export default function AboutHero() {
               variants={fadeUp}
             >
               <MapPin className="size-4" />
-              Durham, England
+              London, England
             </m.p>
 
             {/* Stats Grid */}

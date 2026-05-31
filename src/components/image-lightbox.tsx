@@ -60,6 +60,10 @@ export function ImageLightbox({
     INITIAL_ZOOM_STATE,
   );
 
+  // Reset internal zoom/load state after the controlled `isOpen` prop closes.
+  // Deferred so the AnimatePresence exit animation (which reads isZoomed /
+  // imageLoaded) plays out before state is torn down — moving this into the
+  // close handlers would reset before exit and clip the animation.
   useEffect(() => {
     if (!isOpen) {
       queueMicrotask(() => dispatch({ type: 'reset' }));

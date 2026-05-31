@@ -6,64 +6,70 @@ import { useTheme } from 'next-themes';
 import { Button } from '@/components/ui/button';
 import usePrefersReducedMotion from '@/hooks/usePrefersReducedMotion';
 
+const shineVariant = {
+  hidden: {
+    opacity: 0,
+    scale: 2,
+    strokeDasharray: '20, 1000',
+    strokeDashoffset: 0,
+    filter: 'blur(0px)',
+  },
+  visible: {
+    opacity: [0, 1, 0],
+    strokeDashoffset: [0, -50, -100],
+    filter: ['blur(2px)', 'blur(2px)', 'blur(0px)'],
+    transition: {
+      duration: 0.75,
+    },
+  },
+};
+
+const raysVariants = {
+  hidden: {
+    strokeOpacity: 0,
+    transition: {
+      staggerChildren: 0.05,
+      staggerDirection: -1,
+    },
+  },
+  visible: {
+    strokeOpacity: 1,
+    transition: {
+      staggerChildren: 0.05,
+    },
+  },
+};
+
+const rayVariant = {
+  hidden: {
+    pathLength: 0,
+    opacity: 0,
+    // Start from center of the circle
+    scale: 0,
+  },
+  visible: {
+    pathLength: 1,
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.5,
+      // Customize timing for each property
+      pathLength: { duration: 0.3 },
+      opacity: { duration: 0.2 },
+      scale: { duration: 0.3 },
+    },
+  },
+};
+
+const sunPath =
+  'M70 49.5C70 60.8218 60.8218 70 49.5 70C38.1782 70 29 60.8218 29 49.5C29 38.1782 38.1782 29 49.5 29C60 29 69.5 38 70 49.5Z';
+const moonPath =
+  'M70 49.5C70 60.8218 60.8218 70 49.5 70C38.1782 70 29 60.8218 29 49.5C29 38.1782 38.1782 29 49.5 29C39 45 49.5 59.5 70 49.5Z';
+
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
   const prefersReducedMotion = usePrefersReducedMotion();
 
-  const shineVariant = {
-    hidden: {
-      opacity: 0,
-      scale: 2,
-      strokeDasharray: '20, 1000',
-      strokeDashoffset: 0,
-      filter: 'blur(0px)',
-    },
-    visible: {
-      opacity: [0, 1, 0],
-      strokeDashoffset: [0, -50, -100],
-      filter: ['blur(2px)', 'blur(2px)', 'blur(0px)'],
-      transition: {
-        duration: 0.75,
-      },
-    },
-  };
-
-  const raysVariants = {
-    hidden: {
-      strokeOpacity: 0,
-      transition: {
-        staggerChildren: 0.05,
-        staggerDirection: -1,
-      },
-    },
-    visible: {
-      strokeOpacity: 1,
-      transition: {
-        staggerChildren: 0.05,
-      },
-    },
-  };
-
-  const rayVariant = {
-    hidden: {
-      pathLength: 0,
-      opacity: 0,
-      // Start from center of the circle
-      scale: 0,
-    },
-    visible: {
-      pathLength: 1,
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.5,
-        // Customize timing for each property
-        pathLength: { duration: 0.3 },
-        opacity: { duration: 0.2 },
-        scale: { duration: 0.3 },
-      },
-    },
-  };
   const toggleTheme = () => {
     const newTheme = theme === 'dark' ? 'light' : 'dark';
 
@@ -78,10 +84,6 @@ export function ThemeToggle() {
     // create unavoidable flicker. Use pure CSS transitions instead.
     setTheme(newTheme);
   };
-  const sunPath =
-    'M70 49.5C70 60.8218 60.8218 70 49.5 70C38.1782 70 29 60.8218 29 49.5C29 38.1782 38.1782 29 49.5 29C60 29 69.5 38 70 49.5Z';
-  const moonPath =
-    'M70 49.5C70 60.8218 60.8218 70 49.5 70C38.1782 70 29 60.8218 29 49.5C29 38.1782 38.1782 29 49.5 29C39 45 49.5 59.5 70 49.5Z';
   return (
     <Button
       variant="ghost"

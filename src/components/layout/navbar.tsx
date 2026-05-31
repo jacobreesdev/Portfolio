@@ -20,8 +20,8 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
+import { navigationMenuTriggerStyle } from '@/components/ui/navigation-menu-variants';
 import { useMediaQuery } from '@/hooks/use-media-query';
 import { PROJECTS } from '@/lib/project-data';
 import { cn } from '@/lib/utils';
@@ -215,6 +215,7 @@ const Navbar = () => {
           <div className="flex items-center gap-2 lg:hidden lg:gap-4">
             <ThemeToggle />
             <button
+              type="button"
               className="text-muted-foreground relative flex size-8 rounded-sm border lg:hidden"
               onClick={() => setIsMenuOpen((prev) => !prev)}
             >

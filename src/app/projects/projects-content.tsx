@@ -122,11 +122,11 @@ function ProjectsPageSkeleton() {
               />
             ))}
           </div>
-          <div className="mt-12 grid gap-6 grid-cols-1 md:grid-cols-2 lg:mt-16">
+          <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:mt-16">
             <ProjectCardSkeleton aspect="large" />
             <ProjectCardSkeleton aspect="large" />
           </div>
-          <div className="mt-8 grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             <ProjectCardSkeleton aspect="small" />
             <ProjectCardSkeleton aspect="small" />
             <ProjectCardSkeleton aspect="small" />
@@ -262,6 +262,7 @@ function ProjectsPageContent() {
               variants={fadeUp}
             >
               <button
+                type="button"
                 onClick={() => setSelectedTag(null)}
                 aria-pressed={selectedTag === null}
                 className={cn(
@@ -279,6 +280,7 @@ function ProjectsPageContent() {
                 return (
                   <button
                     key={tag}
+                    type="button"
                     onClick={() => setSelectedTag(tag)}
                     aria-pressed={isActive}
                     className={cn(
@@ -409,6 +411,7 @@ function ProjectsPageContent() {
                 filter.
               </p>
               <button
+                type="button"
                 onClick={() => setSelectedTag(null)}
                 className="mt-4 cursor-pointer rounded-full bg-gradient-to-r from-pink-500 to-orange-400 px-6 py-2 text-sm font-medium text-white shadow-lg shadow-pink-500/25 transition-all hover:shadow-xl hover:shadow-pink-500/30"
               >
